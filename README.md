@@ -1,6 +1,7 @@
 # REX_ATF
 
-**NOT WORKING :/  NOT WORKING  :/  NOT WORKING**  
+**NOT WORKING  -  NOT WORKING  -  NOT WORKING**
+
 Do not bother trying to build this yet unless you actually want to help GET it working.  
 Because it DOES NOT WORK yet.
 
@@ -12,14 +13,14 @@ and openocd programs the svf to the device.
 But if the REX is installed in the option rom socket then it prevents the machine from booting.  
 It's interfering with the bus in some way.
 
-The shematic and pcb are probably good because they are a simple translation of the already working REX Classic,  
-and the VHDL is probably good because it's not changed from Steve's original, which works on XCR3064.  
+The shematic and pcb are probably ok because they are a simple translation of the already working [REX Classic](https://github.com/bkw777/REX_Classic),  
+and the VHDL is probably ok because it's not changed from Steve's original, which works on XCR3064.  
 Possible problems to figure out:  
 * Different compile options, default options, default behavior, between Xilinx ISE and Quartus?  
   Maybe there are some options that ISE and Quartus both have some equivalent feature,  
   but ISE defaults one way and Quartus defaults a different way, and so in Quartus we may need to  
   explicitly set some option that didn't have to be mentioned in the ISE project.  
-* Porting error on my part, IE not handling the global clock pins correctly?  
+* Porting error on my part, IE not handling the global clock pins correctly?  The `ale` signal is on a global clock pin, but I have not explicitly set any options in quartus about it. There are also a few options in pof2jed that might need to be used.
 * Feature differences between xcr3064xl and max7064s?  
   Example, the Xilinx .ucf file specifies internal pullups on several pins,  
   but it's not clear if MAX7000S or ATF1504AS has that feature, and even if ATF1504 does,  
@@ -29,7 +30,6 @@ Possible problems to figure out:
 * Maybe POF2JED is not actually producing 100% correct translation from MAX7064 to ATF1504. Some people have claimed that some working Prochip projects don't work when built in quartus and converted with pof2jed.  
 
 ----
-**NOT WORKING :/  NOT WORKING  :/  NOT WORKING**
 
 [REX Classic](http://tandy.wiki/REX) built on Microchip ATF1504 instead of Xilinx XCR3064
 
@@ -40,9 +40,7 @@ Possible problems to figure out:
 ![](PCB/out/REX_ATF.bottom.jpg)  
 ![](PCB/out/REX_ATF.svg)  
 
-# What is it
-
-**NOT WORKING :/  NOT WORKING  :/  NOT WORKING**
+# What is it?
 
 REX Classic is an on-board software-controlled rom library for TRS-80 Model 100, 102, or 200.
 
@@ -79,7 +77,6 @@ Use the normal [REX Classic](http://bitchin100.com/wiki/index.php?title=REXclass
 # Generating the SVF from the VHDL source
 ![HDL/Compile_HDL.md](HDL/Compile_HDL.md)
 
-**NOT WORKING :/  NOT WORKING  :/  NOT WORKING**
 
 # Credits
 Original REX design is by Steven Adolph  
