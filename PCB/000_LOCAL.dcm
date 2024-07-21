@@ -1,0 +1,39 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP 27C256
+D OTP EPROM 256 KiBit
+K OTP EPROM 256 KiBit
+F http://ww1.microchip.com/downloads/en/DeviceDoc/doc0014.pdf
+$ENDCMP
+#
+$CMP C
+D Unpolarized capacitor
+K cap capacitor
+F ~
+$ENDCMP
+#
+$CMP Net-Tie_2
+D Net tie, 2 pins
+K net tie short
+F ~
+$ENDCMP
+#
+$CMP R
+D Resistor
+K R res resistor
+F ~
+$ENDCMP
+#
+$CMP XCR3064-VQ44
+D Xilinx CoolRunner 64-Macrocell CPLD, 3.3V, VQFP-44
+K CPLD
+F https://www.xilinx.com/support/documentation/data_sheets/ds017.pdf
+$ENDCMP
+#
+$CMP XCR3064XL-VQ44_kicad
+D Xilinx CoolRunner 64-Macrocell CPLD, 3.3V, VQFP-44
+K CPLD
+F https://www.xilinx.com/support/documentation/data_sheets/ds017.pdf
+$ENDCMP
+#
+#End Doc Library
