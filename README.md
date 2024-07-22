@@ -74,6 +74,8 @@ This example shows FT232R.
 ![](HDL/prg2.jpg)
 ![](HDL/prg3.jpg)
 
+You do NOT need to use the VPP test point. It's just there for emergencies. This design does not use any of the JTAG pins for I/O, and so the JTAG pins are always enabled.
+
 # Usage
 Use the normal [REX Classic](http://bitchin100.com/wiki/index.php?title=REXclassic) software and documentation.
 
