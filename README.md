@@ -58,22 +58,24 @@ https://www.digikey.com/en/products/detail/alliance-memory-inc/M29F800FB5AN6F2/1
 2 x 1uF MLCC 0805 16V+  
 https://www.digikey.com/en/products/detail/yageo/CC0805KKX7R7BB105/2103103
 
-Gerbers & cpld code in [releases](../../releases/latest). (not working yet, so no release yet)
+Gerbers & CPLD  in [releases](../../releases/latest). (not working yet, so no release yet)
 
 Carrier: http://shpws.me/SGGB  
-(source: https://github.com/bkw777/Molex78802_Module the PCB-28 variant)
+(cad model source: https://github.com/bkw777/Molex78802_Module )
 
 # Programming the CPLD
-Use [openocd](https://github.com/bkw777/ATF150x_uDEV/blob/main/programming.md#program-the-device-with-the-svf) and a generic [FT232R or FT232H usb-ttl module](https://github.com/bkw777/ATF150x_uDEV/blob/main/programming.md#hardware) to program CPLD with SVF in [Releases](../../releases/latest).  
-(No releases yet since it doesn't work yet. The current svf is just in the HDL/rexbrd/output_files for now.)
+Use [openocd](https://github.com/bkw777/ATF150x_uDEV/blob/main/programming.md#program-the-device-with-the-svf) and a generic [FT232R or FT232H usb-ttl module](https://github.com/bkw777/ATF150x_uDEV/blob/main/programming.md#hardware) to program the CPLD with the SVF in [Releases](../../releases/latest). (No releases yet since it doesn't work yet)
 
-You will need a 6-pin piece of generic single row square male pin header and 6 female dupont wires and a FT232R or FT232H usb-ttl module, or any other programmer openocd supports but these are the simplest.  
-This example shows FT232R.  
+You will need a 6-pin piece of generic single row square male pin header and 6 female dupont wires and a FT232R or FT232H usb-ttl module that supports outputting 5V on VCC.  
+This example shows an [FT232R usbc-ttl-serial module](https://amazon.com/dp/B0CQVB6JFV).  
 ![](HDL/prg1.jpg)
 ![](HDL/prg2.jpg)
 ![](HDL/prg3.jpg)
 
-You do NOT need to use the VPP test point. It's just there for emergencies. This design does not use any of the JTAG pins for I/O, and so the JTAG pins are always enabled.
+This design does not use any of the JTAG pins for general I/O, so you should never need the VPP pad.
+
+(If you ever program the chip with code that uses any of the JTAG pins, then JTAG becomes disabled and you can't re-program the chip any more. In that case you can supply 
+
 
 # Usage
 Use the normal [REX Classic](http://bitchin100.com/wiki/index.php?title=REXclassic) software and documentation.
