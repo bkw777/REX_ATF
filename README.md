@@ -77,7 +77,7 @@ Programmer hardware:
  * 6 female dupont wires
  * [connection pinout table](https://github.com/bkw777/ATF150x_uDEV/blob/main/programming.md#hardware)
 
-Example using an [FT232R usbc-ttl-serial module](https://amazon.com/dp/B0CQVB6JFV).  
+Example using an [FT232R usbc-ttl-serial module](https://amazon.com/dp/B0CQVB6JFV)  
 ![](HDL/prg1.jpg)
 ![](HDL/prg2.jpg)
 ![](HDL/prg3.jpg)
