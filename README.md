@@ -35,7 +35,6 @@ Possible problems to figure out:
 
 ![](PCB/out/REX_ATF.1.jpg)  
 ![](PCB/out/REX_ATF.2.jpg)  
-![](PCB/out/REX_ATF.3.jpg)  
 ![](PCB/out/REX_ATF.top.jpg)  
 ![](PCB/out/REX_ATF.bottom.jpg)  
 ![](PCB/out/REX_ATF.svg)  
