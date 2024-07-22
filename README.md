@@ -13,8 +13,7 @@ and openocd programs the svf to the device.
 But if the REX is installed in the option rom socket then it prevents the machine from booting.  
 It's interfering with the bus in some way.
 
-The shematic and pcb are probably ok because they are a simple translation of the already working [REX Classic](https://github.com/bkw777/REX_Classic),  
-and the VHDL is probably ok because it's not changed from Steve's original, which works on XCR3064.  
+The shematic and pcb are probably ok because they are a simple translation of the already working [REX Classic](https://github.com/bkw777/REX_Classic), and the VHDL is probably ok because it's not changed from Steve's original, which works on XCR3064.  
 Possible problems to figure out:  
 * Different compile options, default options, default behavior, between Xilinx ISE and Quartus?  
   Maybe there are some options that ISE and Quartus both have some equivalent feature,  
