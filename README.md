@@ -64,21 +64,34 @@ Carrier: http://shpws.me/SGGB
 (cad model source: https://github.com/bkw777/Molex78802_Module )
 
 # Programming the CPLD
-Use [openocd](https://github.com/bkw777/ATF150x_uDEV/blob/main/programming.md#program-the-device-with-the-svf) and a generic [FT232R or FT232H usb-ttl module](https://github.com/bkw777/ATF150x_uDEV/blob/main/programming.md#hardware) to program the CPLD with the SVF in [Releases](../../releases/latest). (No releases yet since it doesn't work yet)
+Install openocd and a wrapper script:  
+```
+$ sudo apt install openocd
+$ wget https://github.com/bkw777/ATF150x_uDEV/raw/main/bin/atfsvf
+$ install -m 755 atfsvf ~/.local/bin/
+```
 
-You will need a 6-pin piece of generic single row square male pin header and 6 female dupont wires and a FT232R or FT232H usb-ttl module that supports outputting 5V on VCC.  
-This example shows an [FT232R usbc-ttl-serial module](https://amazon.com/dp/B0CQVB6JFV).  
+Programmer hardware:  
+ * [FT232R or FT232H usb-ttl module that can supply 5V VCC](https://github.com/bkw777/ATF150x_uDEV/blob/main/programming.md#hardware)
+ * 6-pin length of generic 2.54mm single row square male pin header
+ * 6 female dupont wires
+ * [connection pinout table](https://github.com/bkw777/ATF150x_uDEV/blob/main/programming.md#hardware)
+
+Example using an [FT232R usbc-ttl-serial module](https://amazon.com/dp/B0CQVB6JFV).  
 ![](HDL/prg1.jpg)
 ![](HDL/prg2.jpg)
 ![](HDL/prg3.jpg)
 
-This design does not use any of the JTAG pins for general I/O, so you should never need the VPP pad.
+Get the SVF file from [Releases](../../releases/latest). (No releases yet since it doesn't work yet)
 
-(If you ever program the chip with code that uses any of the JTAG pins, then JTAG becomes disabled and you can't re-program the chip any more. In that case you can supply 
+Use the atfsvf script to program the chip from the svf.  
+If you have a FT232H module instead of FT232R, then change ft232r to ft232h below.  
+`$ atfsvf ft232r ATF1504ASL rexbrd.svf`
 
 
 # Usage
 Use the normal [REX Classic](http://bitchin100.com/wiki/index.php?title=REXclassic) software and documentation.
+
 
 # Generating the SVF from the VHDL source
 ![HDL/Compile_HDL.md](HDL/Compile_HDL.md)
