@@ -84,7 +84,7 @@ Example using an [FT232R usbc-ttl-serial module](https://amazon.com/dp/B0CQVB6JF
 
 Get the SVF file from [Releases](../../releases/latest). (No releases yet since it doesn't work yet)
 
-Use the atfsvf script to program the chip from the svf.  
+Use the atfsvf script to program the chip with the svf.  
 If you have a FT232H module instead of FT232R, then change ft232r to ft232h below.  
 `$ atfsvf ft232r ATF1504ASL rexbrd.svf`
 
