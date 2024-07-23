@@ -547,7 +547,7 @@ a1_en <= al_en and not(rex_active);
 
 
 ------------------------------------------------------------------------
--- control the behaviour of the AD port on Rex
+-- control the behaviour of the AD port on REX
 -- output only when the option rom is selected
 -- output ad_dir=0, input ad_dir=1
 ------------------------------------------------------------------------

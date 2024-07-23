@@ -6,8 +6,8 @@
 	(paper "A4")
 	(title_block
 		(title "REX ATF")
-		(date "2024-07-08")
-		(rev "001")
+		(date "2024-07-22")
+		(rev "002")
 		(company "Brian K. White - b.kenyon.w@gmail.com")
 		(comment 1 "Original design: Steven Adolph")
 	)
@@ -3433,10 +3433,28 @@
 		(uuid "5b7476a5-243b-4941-9de3-6badd27ce68a")
 	)
 	(junction
+		(at 210.82 104.14)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5bc7f1ba-c251-4272-8e2d-62d3565785c4")
+	)
+	(junction
 		(at 148.59 113.03)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "66e17151-3066-45ba-b592-a72b5fbb4a98")
+	)
+	(junction
+		(at 210.82 109.22)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6c72705d-b547-44f3-9864-24f3f481787e")
+	)
+	(junction
+		(at 210.82 106.68)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "941cb215-f9fa-4799-bc7d-861cdc334ee8")
 	)
 	(junction
 		(at 146.05 113.03)
@@ -3487,14 +3505,6 @@
 		(uuid "d7d558ba-d5ce-4b8b-9062-5c9a215893e3")
 	)
 	(no_connect
-		(at 210.82 104.14)
-		(uuid "08277770-78bd-4846-b6ff-3be39481f3f4")
-	)
-	(no_connect
-		(at 210.82 109.22)
-		(uuid "63d75fb4-7334-49ba-9a06-ccfe5931fdf8")
-	)
-	(no_connect
 		(at 127 69.85)
 		(uuid "a28d5c9a-daad-482e-8119-33960fb6a059")
 	)
@@ -3530,14 +3540,6 @@
 		(at 54.61 67.31)
 		(uuid "b0c4b098-80f8-4069-9701-a4839ee70b1a")
 	)
-	(no_connect
-		(at 210.82 106.68)
-		(uuid "e5cf154a-e5aa-42bb-87bd-fc53ab23dc1f")
-	)
-	(no_connect
-		(at 210.82 101.6)
-		(uuid "ef4fd7d0-4b05-4591-8212-aff0440fc9e3")
-	)
 	(wire
 		(pts
 			(xy 111.76 105.41) (xy 127 105.41)
@@ -3557,6 +3559,26 @@
 			(type default)
 		)
 		(uuid "04ca39b4-4053-49b6-9243-b89f639195df")
+	)
+	(wire
+		(pts
+			(xy 210.82 101.6) (xy 210.82 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "05657ed2-8d65-4fbc-8071-42c18636b3bf")
+	)
+	(wire
+		(pts
+			(xy 210.82 109.22) (xy 210.82 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0b850df6-3942-4000-a298-a08d8519fb57")
 	)
 	(wire
 		(pts
@@ -3590,6 +3612,16 @@
 	)
 	(wire
 		(pts
+			(xy 210.82 106.68) (xy 210.82 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "204aacaa-f034-4896-919b-e144d2d53366")
+	)
+	(wire
+		(pts
 			(xy 246.38 73.66) (xy 246.38 76.2)
 		)
 		(stroke
@@ -3620,6 +3652,16 @@
 	)
 	(wire
 		(pts
+			(xy 210.82 119.38) (xy 227.33 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "63419f88-f450-4060-b246-1d864efc5825")
+	)
+	(wire
+		(pts
 			(xy 143.51 41.91) (xy 146.05 41.91)
 		)
 		(stroke
@@ -3627,6 +3669,16 @@
 			(type default)
 		)
 		(uuid "6db0b6e5-0a25-4702-a6cc-ed04139ac6e4")
+	)
+	(wire
+		(pts
+			(xy 210.82 104.14) (xy 210.82 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7176ecff-1f33-46d0-8ac7-3d148eff6456")
 	)
 	(wire
 		(pts
@@ -3788,6 +3840,17 @@
 			)
 		)
 		(uuid "4b4b35f4-d633-4d0b-bdef-748af5e57c42")
+	)
+	(text "NC pins used for pcb ground connection through the footprint"
+		(exclude_from_sim no)
+		(at 206.756 139.7 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "8b3428ae-f1e0-41fe-8bb5-f36c46029617")
 	)
 	(text "(*) name in VHDL"
 		(exclude_from_sim no)

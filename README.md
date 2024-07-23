@@ -24,9 +24,9 @@ Possible problems to figure out:
   Example, the Xilinx .ucf file specifies internal pullups on several pins,  
   but it's not clear if MAX7000S or ATF1504AS has that feature, and even if ATF1504 does,  
   if MAX7000S didn't, then quartus can't generate code for it. So maybe those pins need  
-  external pullups on the PCB?  
+  external pullups on the PCB? Or maybe the pin-keeper feature is the equivalent?  
 * Timing differences. Maybe the logic is all correct and the behavior of the pins is all correct, but the same code on the ATF ends up not being fast enough due to different implimentation or maybe due to my re-arranged pin assignments.  
-* Maybe POF2JED is not actually producing 100% correct translation from MAX7064 to ATF1504. Some people have claimed that some working Prochip projects don't work when built in quartus and converted with pof2jed.  
+* Maybe POF2JED is not actually producing 100% correct translation. http://forum.6502.org/viewtopic.php?p=84623#p84623
 
 ----
 
