@@ -57,7 +57,7 @@ https://www.digikey.com/en/products/detail/alliance-memory-inc/M29F800FB5AN6F2/1
 2 x 1uF MLCC 0805 16V+  
 https://www.digikey.com/en/products/detail/yageo/CC0805KKX7R7BB105/2103103
 
-Gerbers & CPLD  in [releases](../../releases/latest). (not working yet, so no release yet)
+Gerbers & CPLD bitstream in [releases](../../releases/latest). (not working yet, so no release yet)
 
 Carrier: http://shpws.me/SGGB  
 (cad model source: https://github.com/bkw777/Molex78802_Module )
