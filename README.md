@@ -5,7 +5,7 @@ Because it DOES NOT WORK yet. But it seems to be close...
 
 ## Current Status
 
-The code compiles and creates rexbrd.pof.  
+The VHDL compiles and creates rexbrd.pof.  
 pof2jed creates rexbrd.jed.  
 atmisp creates rexbrd.svf.  
 openocd programs rexbrd.svf to the device.  
