@@ -1,6 +1,6 @@
 
 minimal:
-$ pof2jed rexbrd.pof -verbose -device 1504as
+$ pof2jed rexbrd.pof -verbose -device 1504as -pin_keep
 
 all the options we might want, still to be tested:
 pof2jed rexbrd.pof -verbose -device 1504as -pinclk -pin_keep -MC_power on -power_reset -GCLK3_ITD -JTAG on -TDI_PULLUP -TMS_PULLUP
@@ -8,13 +8,15 @@ pof2jed rexbrd.pof -verbose -device 1504as -pinclk -pin_keep -MC_power on -power
 
 -pinclk        for ALE ? don't know what this exactly does
 
--pin_keep      for CSA & CSB ?
-               we want CSA & CSB to internally hold up if possible
-               unknown yet: does this drive the pin or merely pullup?
-               unknown yet: will this cause all other pins to fight the bus?
-               If we can't replicate the xilinx internal pullup, not the end of
-               the world. We really only need these 2 pins to be pulled up,
-               and there is plenty of pcb space for 2 resistors.
+-pin_keep      for CSA & CSB
+               The VHDL initiallizes the pins high, but this is required to keep them high.
+               It's working at least in so far as the pins are being held high,
+               the rex is not selecting itself and corrupting the bus,
+               and the machine runs normally as long as the option rom isn't accessed.
+               unknown yet: does this drive the pin or merely pullup? (will the main rom feature be usable?)
+               unknown yet: will this cause other pins to fight the bus?
+               If we can't replicate the Xilinx internal pullup behavior,
+               there is plenty of pcb space for 2 external pullup resistors.
 
 -MC_power on   definitely want the chip to sleep as much as possible
                but make sure it doesn't make it too slow
@@ -24,8 +26,8 @@ pof2jed rexbrd.pof -verbose -device 1504as -pinclk -pin_keep -MC_power on -power
 -GCLK3_ITD     Prevents the chip partially waking up if the line changes.
                Probably has no effect in our case.
                Pin 35 is only an output from our point of view so we're always
-               driving it one way or another and nothing else is, it's only
-               connected the /CE input on the flash chip.
+               driving it one way or another and nothing else is.
+               It's only connected the /CE input on the flash chip.
 
 -JTAG on       should already be the default but can't hurt
 
