@@ -19,8 +19,19 @@ Externally pulling both pins high allows the machine to run normally.
 `rf149.co` runs without error.  
 CALL 63012 hangs.
 
-Testing vhdl change to init the pins high.
-Testing moving ALE to a global clock pin, even though it's not on a global clock pin on the xilinx part, but it is declared as a clock in ISE.
+Trying both a VHDL change and a project build option to init the pins high.  
+The xilinx UCF file calls out internal pullups on all the control pins including CSA & CSB (cs_MAIN1 & cs_MAIN2A in the original code), but there doesn't see to be an equivalent feature available in MAX7000S.  
+ATF1504AS has a pin keeper feature which might be equivalent, but Quartus isn't actually targeting ATF1504AS, it's targeting EPM7064S.  
+Presumably Prochip would properly know the devices full features, but Prochip is unavailable.  
+Possibly just setting the pin high in VHDL, possibly combined with pof2jed -pin_keep may work.
+
+Mishandled ALE.  
+ALE is the main clock for the design.  
+ALE is on pin 39 on the original Xilinx design, and pin 39 is a GCLK pin on XCR3064.  
+ALE was on pin 39 here too, but pin 39 is not a GCLK pin on ATF1504,  
+so, moved ALE to pin 40, and declred as global clock in pin assignments.
+
+These changes not tested yet.
 
 ----
 

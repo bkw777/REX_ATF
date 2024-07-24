@@ -1,0 +1,161 @@
+
+minimal:
+$ pof2jed rexbrd.pof -verbose -device 1504as
+
+all the options we might want, still to be tested:
+pof2jed rexbrd.pof -verbose -device 1504as -pinclk -pin_keep -MC_power on -power_reset -GCLK1_ITD -GCLK3_ITD -JTAG on -TDI_PULLUP -TMS_PULLUP
+
+
+-pinclk        for ALE ? don't know what this exactly does
+
+-pin_keep      for CSA & CSB ?
+               we want CSA & CSB to internally hold up if possible
+               unknown yet: does this drive the pin or merely pullup?
+               unknown yet: will this cause all other pins to fight the bus?
+               If we can't replicate the xilinx internal pullup, not the end of
+               the world. We really only need these 2 pins to be pulled up,
+               and there is plenty of pcb space for 2 resistors.
+
+-MC_power on   definitely want the chip to sleep as much as possible
+               but make sure it doesn't make it too slow
+
+-power_reset   large vcc hysteresis, maybe we want it, maybe we don't, test both
+
+-GCLK1_ITD     ALE is on GCLK2, maybe we want to disable the other two?
+-GCLK3_ITD     Is that even what this option does? find out.
+
+-JTAG on       should already be the default but can't hurt
+
+-TDI_PULLUP    not strictly necessary, but the jtag pins are floating inputs
+-TMS_PULLUP
+
+-slew          who knows... try all
+
+-secure        DO NOT USE - This will make the chip unprogrammable any more.
+               VPP does NOT overcome this!
+
+-------------------------------------------------------------------------------
+
+$ pof2jed
+Microchip pof2jed  Version 4.45.1 Mar 13 2018
+Copyright 2018 Microchip. All Rights Reserved.
+
+ Please provide the device type to get the appropriate options as follow :
+ pof2jed [-1500|-1500a|-1502as|-1502asv|-1504as|-1504asv|-1508as|-1508asv]
+
+$ pof2jed -1504as
+Microchip pof2jed  Version 4.45.1 Mar 13 2018
+Copyright 2018 Microchip. All Rights Reserved.
+
+usg: pof2jed [-i] filename.POF [-o filename.JED] [options]
+options:
+   -i                     : specify input POF file
+   -o                     : specify output JEDEC file
+   -PD1                   : Enable the Power Down mode on pin PD1
+                            (defaults to Disabled.)
+   -PD2                   : Enable the Power Down mode on pin PD2
+                            (defaults to Disabled.)
+   -secure                : set security bit on
+                            (defaults to unsecure.)
+   -slew [FAST|slow|AUTO] : set slew rate for all outputs
+                            FAST: set output slew to FAST
+                            SLOW: set output slew to SLOW
+                            AUTO: follows settings from POF
+                            (defaults to AUTO).
+   -pinclk                : use pin clock wherever applicable
+   -race_cover_off        : turn OFF race coverage option
+                            (defaults to ON.)
+   -verbose               : see configuration changes
+   -pin_keep              : Enable pin keeper circuits
+                            (defaults to Disabled).
+   -device device_name    : specify target device name, e.g. 1500,
+         1500a, 1502as, 1502asv, 1504as, 1504asv, 1508as, 1508asv
+         note: pof2jed can only convert to a part with coresponding
+         architecture, the only cross architecture conversion possible
+         is from Max7000 non-S to ATF1502AS(V)
+   -h2                    : Displays Advanced Help Options
+
+$ pof2jed -1504as -h2
+Microchip pof2jed  Version 4.45.1 Mar 13 2018
+Copyright 2018 Microchip. All Rights Reserved.
+
+Advance Help Options:
+   -MC_power [on|off|AUTO] : sets Low Power mode for all Macrocells
+                             ON:  turns ON Low Power mode for all MCs
+                             OFF: turns OFF Low Power mode for all MCs
+                             AUTO:follows settings from POF
+                             (defaults to AUTO).
+   -power_reset            : Sets device power-up reset hysteresis to Large.
+                             (ignore VCC glitches).
+                             defaults to small hysteresis -
+                             (reset whenever Vcc is at the reset voltage level))
+   -GCLK1_ITD               : Disables ITD fuse on GCLK1
+                             (defaults to enabled).
+   -GCLK2_ITD               : Disables ITD fuse on GCLK2
+                             (defaults to enabled).
+   -GCLK3_ITD               : Disables ITD fuse on GCLK3
+                             (defaults to enabled).
+   -open_out [on|OFF|AUTO] : Sets all macrocell Output types
+                             ON:  Sets to Open Collector mode.
+                             OFF: Sets to Normal mode.
+                             AUTO:follows settings from POF.
+                             (7064   : defaults to OFF,
+                              7064S/AE  : defaults to AUTO).
+   -JTAG [on|OFF|AUTO]     : Sets JTAG Mode
+                             ON:  Enables JTAG mode.
+                             OFF: Disables JTAG mode.
+                             AUTO:follows settings from POF.
+                             (7064   : defaults to OFF,
+                              7064S/AE  : defaults to AUTO).
+   -TDI_PULLUP             : Enables pull-up on TDI pin (7064S/AE only).
+                             (defaults to Disabled).
+                             When this option is selected JTAG mode is enabled,
+                             and you do not need to specify JTAG option.
+   -TMS_PULLUP             : Enables pull-up  on TMS pin (7064S/AE only).
+                             (defaults to Disabled).
+                             When this option is selected JTAG mode is enabled,
+                             and you do not need to specify JTAG option.
+
+
+-------------------------------------------------------------------------------
+
+$ cat ~/.local/bin/pof2jed
+#!/bin/sh
+# Wrapper to run POF2JED
+# Install in ~/.local/bin along with wine_atmel
+
+exec wine_atmel c:/pof2jed/bin/pof2jed.exe "$@"
+
+-------------------------------------------------------------------------------
+
+$ cat ~/.local/bin/winpof2jed 
+#!/bin/sh
+# Wrapper to run WinPOF2JED
+# Install in ~/.local/bin along with wine_atmel
+
+# "start" makes the help buttons work
+exec wine_atmel start c:/pof2jed/bin/winpof2jed.exe "$@"
+
+-------------------------------------------------------------------------------
+
+$ cat ~/.local/bin/wine_atmel
+#!/bin/sh
+# Convenience script to load a specific WINEARCH & WINEPREFIX
+# https://github.com/bkw777/ATF150x_uDEV/blob/main/programming.md
+# Install in ~/.local/bin
+
+# usage:
+# 	$ . wine_atmel		# to set the wine env in your current shell environment
+#	$ wine_atmel args...	# to run args... in the wine env
+#	$ wine_atmel explorer
+#	# wine_atmel "c:/path/to/file.exe" args...
+
+# no bashisms because we may be sourced
+WINEARCH=win32
+WINEPREFIX=~/.wine_atmel
+WINEDEBUG="fixme-all"
+export WINEARCH WINEPREFIX WINEDEBUG
+[ $# -eq 0 ] && { set |grep '^WINE' ; : ; } || exec wine "$@"
+
+-------------------------------------------------------------------------------
+

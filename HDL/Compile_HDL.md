@@ -20,7 +20,7 @@ $ cat >~/.local/bin/pof2jed <<%EOF
 # Wrapper to run POF2JED
 # Install in ~/.local/bin along with wine_atmel
 
-wine_atmel c:/pof2jed/bin/pof2jed.exe "\$@"
+exec wine_atmel c:/pof2jed/bin/pof2jed.exe "\$@"
 %EOF
 $ chmod 755 ~/.local/bin/pof2jed
 $ cat >~/.local/bin/winpof2jed <<%EOF 
@@ -28,8 +28,8 @@ $ cat >~/.local/bin/winpof2jed <<%EOF
 # Wrapper to run WinPOF2JED
 # Install in ~/.local/bin along with wine_atmel
 
-# "start" not needed to run, but makes the help buttons work
-wine_atmel start c:/pof2jed/bin/winpof2jed.exe "\$@"
+# "start" makes the help buttons work
+exec wine_atmel start c:/pof2jed/bin/winpof2jed.exe "\$@"
 %EOF
 $ chmod 755 ~/.local/bin/winpof2jed
 ```
@@ -42,14 +42,22 @@ $ q13 rexbrd
 
 Press the play button to generate `output_files/rexbrd.pof`  
 
-## Convert MAX7000S POF to ATF1504AS JED
+This produces a `*.pof` which could be used to program a EPM7064S right from within Quartus.
+
+## Convert POF for EPM7064S to JED for ATF1504AS
+[pof2jed.txt](pof2jed.txt)  
 ```
 $ cd output_files
-$ pof2jed -verbose -device 1504as -JTAG on -TDI_PULLUP -TMS_PULLUP rexbrd
+$ pof2jed rexbrd -verbose -device 1504as -JTAG on -TDI_PULLUP -TMS_PULLUP
 ```
 
+This produces a `*.jed` which could be used by ATMISP to program a ATF1504ASL if you have a ATDH1150USB programmer.
+
 ## Convert JED to SVF
+ATMISP can not program the JED to the chip with any other kind of programmer except exactly a $90 ATDH1150USB, but it can read the JED and write out a SVF file.  
 https://github.com/bkw777/ATF150x_uDEV/blob/main/programming.md#convert-the-jed-to-svf
+
+This produces a `*.svf` which any generic jtag software and hardware can use to program the chip.
 
 ## Setup JTAG programmer hardware
 https://github.com/bkw777/ATF150x_uDEV/blob/main/programming.md#hardware)  
@@ -65,4 +73,3 @@ RTS-TDO
 
 ## Program the SVF to the chip
 https://github.com/bkw777/ATF150x_uDEV/blob/main/programming.md#program-the-device-with-the-svf
-
