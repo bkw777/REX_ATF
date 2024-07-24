@@ -10,7 +10,7 @@ Current Status:
 The code compiles and creates rexbrd.pof,  
 and pof2jed creates rexbrd.jed,  
 and atmisp creates rexbrd.svf,  
-openocd programs rexbrd.svf to the device.
+openocd programs rexbrd.svf to the device.  
 `rf149.co` runs without error.  
 CALL 63012 hangs.
 
