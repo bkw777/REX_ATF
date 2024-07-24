@@ -2,8 +2,8 @@
 --
 -- 20240708 Brian K. White - b.kenyon.w@gmail.com
 -- Port from Xilinx XCR3064 to Microchip ATF1504
--- No actual changes to the VHDL code, just new pin assignments,
--- for easier pcb routing and to reserve the jtag pins.
+-- No changes to the VHDL logic.
+-- There are changes to pin assignments, labels, comments, and formatting.
 --
 -- Use Quartus II 13.0sp1 to generate POF for EPM7064STC44-10,
 -- then POF2JED to convert POF to JED for ATF1504ASL-xAx44,
@@ -40,9 +40,9 @@
 -- power up defaults must be '1' for flip flops
 
 -- bug fix relating to reset
--- simpified ALE internal flip flops, eliminated cs_OPT flip flop
--- eliminated REX2 from support in this stream.  REX2 must be supported from a specific
--- REX2 build.
+-- simpified ALE internal flip flops, eliminated CS flip flop
+-- eliminated REX2 from support in this stream.
+-- REX2 must be supported from a specific REX2 build.
 
 ------------------------------------------------------------------------
 -- define a positive edge triggered clock register
@@ -123,21 +123,25 @@ use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity rexbrd is
-   port (
+	port (
 
-   	-- M100 Interface signals
-		ad													: inout std_logic_vector(7 downto 0);	
-		rd, ale, cs_OPT								: in std_logic;
-		
+		-- M100 interface signals
+		ad			: inout std_logic_vector(7 downto 0); -- AD0-AD7 from the bus
+		OE			: in std_logic; -- /OE from the bus
+		ALE		: in std_logic; -- ALE from the bus
+		CS			: in std_logic := '1'; -- /CS from the bus - host wants option rom
+
 		-- /CS for main/system rom
-		cs_MAIN1											: in std_logic; -- TP1 - /CS for main rom on all models
-		cs_MAIN2A										: in std_logic; -- TP2 - /CS for 8K rom on Model 200
-	    	
-		--  Memory interface signals	
-		au												: out std_logic_vector(19 downto 15);
-		al												: out std_logic_vector(7 downto 0);
-		we, ce, oe									: out std_logic;					
-		ryby											: in std_logic
+		CSA		: in std_logic := '1'; -- /CS from TP1 - host wants main rom
+		CSB		: in std_logic := '1'; -- /CS from TP2 - host wants the extra 8K rom on Model 200
+
+		--  Memory interface signals
+		au			: out std_logic_vector(19 downto 15); -- A15-A19 to mem
+		al			: out std_logic_vector(7 downto 0); -- A0-A7 to mem
+		WEmem		: out std_logic; -- /WE to mem
+		CEmem		: out std_logic; -- /CE to mem
+		OEmem		: out std_logic; -- /OE to mem
+		BYmem		: in std_logic -- RY/BY from mem
 
 	);
 end rexbrd;
@@ -151,7 +155,7 @@ architecture rex_rtl of rexbrd is
 component regis is
 	port (
 		rst, clk, clk_en, clr, default, input	: in std_logic;
-		output							: out std_logic
+		output					: out std_logic
 	);
 end component;
 
@@ -162,7 +166,7 @@ end component;
 component regis_vector is
 	port (
 		rst, clk, clk_en, clr, default 	: in std_logic;
-		input					: in std_logic_vector;
+		input				: in std_logic_vector;
 		output				: out std_logic_vector
 	);
 end component;
@@ -170,31 +174,31 @@ end component;
 
 -- SIGNAL definitions ------------------------------------------------------------------------------------------
 
-signal al_lo, al_reg_in, gp_reg_in, gp_data					: std_logic_vector(7 downto 0);
-signal nState, state						: std_logic_vector(2 downto 0);
-signal ad_in								: std_logic_vector(7 downto 0);
-signal ad_dir, al_en						: std_logic;
-signal sector								: std_logic_vector(4 downto 0);
-signal sector_en							: std_logic;
-signal gp_en, counter_on								: std_logic;
+signal al_lo, al_reg_in, gp_reg_in, gp_data		: std_logic_vector(7 downto 0);
+signal nState, state					: std_logic_vector(2 downto 0);
+signal ad_in						: std_logic_vector(7 downto 0);
+signal ad_dir, al_en					: std_logic;
+signal sector						: std_logic_vector(4 downto 0);
+signal sector_en					: std_logic;
+signal gp_en, counter_on				: std_logic;
 signal ad_data, ad_reg_in				: std_logic_vector(7 downto 0);
-signal ad_out_en  						: std_logic;
+signal ad_out_en  					: std_logic;
 
-signal rex_active, romsel, cs_MAIN2				: std_logic;
-signal cs_MAIN_v							: std_logic_vector(1 downto 0);
+signal rex_active, romsel, CSB_i			: std_logic;
+signal cs_MAIN_v					: std_logic_vector(1 downto 0);
 
-signal rst					: std_logic;
+signal rst						: std_logic;
 
 signal s_en, a1_en, ad_en				: std_logic;
 signal ce_rex, we_rex, oe_rex				: std_logic;
 
-signal count, nCount									:std_logic_vector(2 downto 0);
-signal count_clr									:std_logic;
-signal key_vector														:std_logic_vector(10 downto 0);
+signal count, nCount					:std_logic_vector(2 downto 0);
+signal count_clr					:std_logic;
+signal key_vector					:std_logic_vector(10 downto 0);
 
-signal control, nControl		: std_logic;
+signal control, nControl				: std_logic;
 
-signal ale_int, ale_high_pulse, ale_clr, ale_count		: std_logic;
+signal ale_int, ale_high_pulse, ale_clr, ale_count	: std_logic;
 
 signal default_vector					: std_logic_vector(25 downto 0);
 
@@ -219,14 +223,14 @@ constant FW_version : std_logic_vector(5 downto 0) :="0110" & model;
 begin
 ------------------------------------------------------------------------
 -- create a delayed internal ALE 
--- first one toggles down on ale falling edge
+-- first one toggles down on ALE falling edge
 -- reset by ale_clr
 -- FF power up default is '1', and default on clear/reset is '1'
 ------------------------------------------------------------------------
-ale_clr_flop:		regis port map ('0',      ale, '1', ale_clr, '1', '0', ale_high_pulse);
-ale_int_flop:		regis port map ('0', not(ale), '1', ale_clr, '1', '0', ale_int);
+ale_clr_flop:		regis port map ('0',      ALE, '1', ale_clr, '1', '0', ale_high_pulse);
+ale_int_flop:		regis port map ('0', not(ALE), '1', ale_clr, '1', '0', ale_int);
 
-ale_clr <= '1' when ale='1' and (ale_int='0' or ale_high_pulse='0') else '0';
+ale_clr <= '1' when ALE='1' and (ale_int='0' or ale_high_pulse='0') else '0';
 
 
 
@@ -238,16 +242,16 @@ ale_clr <= '1' when ale='1' and (ale_int='0' or ale_high_pulse='0') else '0';
 -- FF power up default is '1', and default on clear/reset is '1'
 ------------------------------------------------------------------------
 
-ale_counter:		regis port map ('0', not(ale), ale_count, '0', '1', not(ale_count), ale_count);
+ale_counter:		regis port map ('0', not(ALE), ale_count, '0', '1', not(ale_count), ale_count);
 
 default_vector <= state & control & sector & romsel & gp_data & al_lo;
 
-process (ale, ale_count, default_vector)
+process (ALE, ale_count, default_vector)
 begin
 	case ale_count is
 	when '1' =>
 	
-		case ale is
+		case ALE is
 		when '1'=>
 		
 			case default_vector is
@@ -268,22 +272,21 @@ begin
 end process;
 
 
-
-cs_MAIN2 <= '0' when (cs_MAIN1 = '1' and cs_MAIN2a = '0') else '1';
+CSB_i <= '0' when (CSA = '1' and CSB = '0') else '1';
 -- this is needed because of extra chip select of A15 on 8k ROM
 
-rex_active <= (cs_OPT and cs_MAIN1 and cs_MAIN2) when state = "111" else cs_OPT;	-- if either is 0 then result 0
+rex_active <= (CS and CSA and CSB_i) when state = "111" else CS;	-- if either is 0 then result 0
 
-ce <= ce_rex or rex_active;
-oe <= oe_rex or rex_active or rd;
-we <= we_rex or rex_active or rd;
+CEmem <= ce_rex or rex_active;
+OEmem <= oe_rex or rex_active or OE;
+WEmem <= we_rex or rex_active or OE;
 
 ------------------------------------------------------------------------
 -- define the state machine that controls the flash
 ------------------------------------------------------------------------
 key_vector <= ad_in & count;
 
-process (	state, ad_in, ale, rd, ryby, sector, romsel, ad_data, key_vector, control)
+process (	state, ad_in, ALE, OE, BYmem, sector, romsel, ad_data, key_vector, control)
 begin
 
 case state is
@@ -343,7 +346,7 @@ when "000" =>						-- read in command
 		ad_reg_in <= ad_in;		-- data don't care, address - don't care
 	when "011" => 					-- read status CMD3
 		nState <= "011";			-- output from REX to CPU
-		ad_reg_in <= ryby & romsel & '0' & sector; 		-- latch data - needed!, address - don't care
+		ad_reg_in <= BYmem & romsel & '0' & sector; 		-- latch data - needed!, address - don't care
 	when "100" =>					-- normal memory read CMD4
 		nState <= "100";			-- go to latch address state
 		ad_reg_in <= ad_in;		-- data don't care, address don't care
@@ -496,12 +499,12 @@ end process;
 ------------------------------------------------------------------------
 -- create a register to control outputs in state 000
 ------------------------------------------------------------------------
-control_1: 	regis 	port map (rst, not(ale_int), not(cs_OPT), '0', '1', nControl, control);
+control_1: 	regis 	port map (rst, not(ale_int), not(CS), '0', '1', nControl, control);
 
 ------------------------------------------------------------------------
 -- create the state register
 ------------------------------------------------------------------------
-state_reg: 	regis_vector 	port map (rst, not(ale_int), not(cs_OPT), '0', '1', nState, state);
+state_reg: 	regis_vector 	port map (rst, not(ale_int), not(CS), '0', '1', nState, state);
 
 ------------------------------------------------------------------------
 -- create the sector register, default sector is 00000
@@ -510,7 +513,7 @@ state_reg: 	regis_vector 	port map (rst, not(ale_int), not(cs_OPT), '0', '1', nS
 sector_0: 	regis_vector 	port map (rst, not(ale_int), s_en, '0', '0', ad_in(4 downto 0), sector);
 
 
-s_en <= sector_en and not(cs_OPT);
+s_en <= sector_en and not(CS);
 sector_en <= '1' when state = "001" else '0';
 
 ------------------------------------------------------------------------
@@ -519,7 +522,7 @@ sector_en <= '1' when state = "001" else '0';
 -- create the rom selector, default sector is 0
 ------------------------------------------------------------------------
 
-cs_MAIN_v <= cs_MAIN1 & cs_MAIN2;
+cs_MAIN_v <= CSA & CSB_i;
 
 process (cs_MAIN_v, romsel, sector)
 begin
@@ -553,7 +556,7 @@ a1_en <= al_en and not(rex_active);
 ------------------------------------------------------------------------
 ad_in <= "00000000" when ad_out_en = '0' else ad;
 ad <= ad_data when ad_out_en='0' else "ZZZZZZZZ";
-ad_out_en <=  ad_dir or rd or cs_OPT;
+ad_out_en <=  ad_dir or OE or CS;
 
 
 ------------------------------------------------------------------------
@@ -561,7 +564,7 @@ ad_out_en <=  ad_dir or rd or cs_OPT;
 ------------------------------------------------------------------------
 
 gp_0: 		regis_vector 	port map (rst, not(ale_int), gp_en, '0', '0', gp_reg_in, gp_data);
-gp_en <= ad_en and not(cs_OPT);
+gp_en <= ad_en and not(CS);
 
 gp_reg_in(7 downto 5) <= nCount when counter_on = '1' else ad_reg_in(7 downto 5);
 gp_reg_in(4 downto 0) <= ad_reg_in(4 downto 0);
@@ -579,4 +582,3 @@ nCount(1) <= (count(1) xor count(0)) and not(count_clr);
 nCount(2) <= (count(2) xor (count(1) and count(0))) and not(count_clr);
 
 end rex_rtl;
-

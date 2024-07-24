@@ -6,8 +6,8 @@
 	(paper "A4")
 	(title_block
 		(title "REX ATF")
-		(date "2024-07-22")
-		(rev "002")
+		(date "2024-07-23")
+		(rev "004")
 		(company "Brian K. White - b.kenyon.w@gmail.com")
 		(comment 1 "Original design: Steven Adolph")
 	)
@@ -3421,7 +3421,7 @@
 		(uuid "409905ad-7c52-4302-8fb4-0a0540f4b99b")
 	)
 	(junction
-		(at 111.76 105.41)
+		(at 114.3 105.41)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "4eecc1dd-badb-4b05-8670-53beb217d9ee")
@@ -3505,8 +3505,8 @@
 		(uuid "d7d558ba-d5ce-4b8b-9062-5c9a215893e3")
 	)
 	(no_connect
-		(at 127 69.85)
-		(uuid "a28d5c9a-daad-482e-8119-33960fb6a059")
+		(at 127 102.87)
+		(uuid "243394af-4d7e-42bc-9584-5d78eb09a1ca")
 	)
 	(no_connect
 		(at 54.61 69.85)
@@ -3542,7 +3542,7 @@
 	)
 	(wire
 		(pts
-			(xy 111.76 105.41) (xy 127 105.41)
+			(xy 114.3 105.41) (xy 127 105.41)
 		)
 		(stroke
 			(width 0)
@@ -3780,36 +3780,6 @@
 		)
 		(uuid "002e825d-92d2-4d30-b92b-18c10a32b1e9")
 	)
-	(text "(*) rd"
-		(exclude_from_sim no)
-		(at 115.824 107.188 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "0288c310-9d90-4d55-b972-53917c8f6d64")
-	)
-	(text "ryby"
-		(exclude_from_sim no)
-		(at 115.57 84.074 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "02be29e1-1633-4cf8-ae2e-8fca3b8cab5d")
-	)
-	(text "oe"
-		(exclude_from_sim no)
-		(at 115.316 48.514 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "0a5c70b0-6446-457c-9d78-b1e217ee4da5")
-	)
 	(text "29F800 bottom-boot TSOP-48\nAM29F800BB, MX29F800CB, M29F800FB"
 		(exclude_from_sim no)
 		(at 206.756 132.715 0)
@@ -3821,26 +3791,6 @@
 		)
 		(uuid "1e440426-669b-4202-b7a6-f9e88f8f6e95")
 	)
-	(text "ale"
-		(exclude_from_sim no)
-		(at 116.586 101.854 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "2286ce70-16ee-44eb-853e-71792da2690b")
-	)
-	(text "we"
-		(exclude_from_sim no)
-		(at 115.316 86.614 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "4b4b35f4-d633-4d0b-bdef-748af5e57c42")
-	)
 	(text "NC pins used for pcb ground connection through the footprint"
 		(exclude_from_sim no)
 		(at 206.756 139.7 0)
@@ -3851,37 +3801,6 @@
 			(justify left)
 		)
 		(uuid "8b3428ae-f1e0-41fe-8bb5-f36c46029617")
-	)
-	(text "(*) name in VHDL"
-		(exclude_from_sim no)
-		(at 113.03 114.554 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "8f1b40fc-3e16-4416-b7e2-4c5d51104d0a")
-	)
-	(text "cs_OPT"
-		(exclude_from_sim no)
-		(at 115.57 99.314 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "ae7f9fca-7c03-4198-aba1-393b2b9f80e8")
-	)
-	(text "ce"
-		(exclude_from_sim no)
-		(at 115.316 45.974 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "aff1c5ad-7a09-4857-8956-4aea77d9cf11")
 	)
 	(label "au17"
 		(at 210.82 91.44 180)
@@ -3960,8 +3879,19 @@
 		)
 		(uuid "0efb7bec-7417-4544-8697-93aaafd77a1c")
 	)
-	(label "ALE_BUS"
-		(at 127 102.87 180)
+	(label "~{BY}mem"
+		(at 246.38 96.52 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "10739bb6-2e51-4102-97d6-fed4a52d4633")
+	)
+	(label "ALE"
+		(at 127 100.33 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3971,7 +3901,7 @@
 		)
 		(uuid "10f518cd-a5ac-46df-b08e-3ccce5135c02")
 	)
-	(label "ALE_BUS"
+	(label "ALE"
 		(at 54.61 100.33 180)
 		(fields_autoplaced yes)
 		(effects
@@ -4026,7 +3956,7 @@
 		)
 		(uuid "211d29ad-0f00-4988-835c-1d237f393335")
 	)
-	(label "TP2"
+	(label "~{CSB}"
 		(at 167.64 80.01 0)
 		(fields_autoplaced yes)
 		(effects
@@ -4048,7 +3978,7 @@
 		)
 		(uuid "2e4be36b-f977-4ee5-bd49-7a96d1c713d8")
 	)
-	(label "~{WE_FLASH}"
+	(label "~{WE}mem"
 		(at 127 87.63 180)
 		(fields_autoplaced yes)
 		(effects
@@ -4081,7 +4011,7 @@
 		)
 		(uuid "3194f017-74fc-4a71-9b0f-de7f6946a750")
 	)
-	(label "TP1"
+	(label "~{CSA}"
 		(at 167.64 77.47 0)
 		(fields_autoplaced yes)
 		(effects
@@ -4092,7 +4022,7 @@
 		)
 		(uuid "334aa052-4b4c-4ddf-8077-4135ad85a336")
 	)
-	(label "~{OE_BUS}"
+	(label "~{OE}"
 		(at 127 107.95 180)
 		(fields_autoplaced yes)
 		(effects
@@ -4246,7 +4176,7 @@
 		)
 		(uuid "590c7766-1ede-418d-80ae-657cb72ae0dc")
 	)
-	(label "~{OE_FLASH}"
+	(label "~{OE}mem"
 		(at 127 49.53 180)
 		(fields_autoplaced yes)
 		(effects
@@ -4268,17 +4198,6 @@
 		)
 		(uuid "5c1f883e-3d02-4d66-a80c-8b10c9ce0d89")
 	)
-	(label "RY{slash}~{BY}"
-		(at 246.38 96.52 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "5c625130-cba0-4669-8fcb-5dc2c842184d")
-	)
 	(label "TMS"
 		(at 68.58 152.4 0)
 		(fields_autoplaced yes)
@@ -4289,17 +4208,6 @@
 			(justify left bottom)
 		)
 		(uuid "60282257-2839-44d6-9e8d-8e5158939726")
-	)
-	(label "~{WE_FLASH}"
-		(at 246.38 111.76 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "638dd18e-d203-4b92-9a88-3d409998351a")
 	)
 	(label "al5"
 		(at 127 82.55 180)
@@ -4312,6 +4220,28 @@
 		)
 		(uuid "671dde68-e2af-4b1f-ac5b-4fc7a837840a")
 	)
+	(label "~{CE}mem"
+		(at 246.38 104.14 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "69a8b0d4-3f20-4d74-9c6c-db9531a383b5")
+	)
+	(label "~{WE}mem"
+		(at 246.38 111.76 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6a3c0730-8f09-4844-9aa9-d781f40b8c5c")
+	)
 	(label "A10"
 		(at 54.61 85.09 180)
 		(fields_autoplaced yes)
@@ -4323,7 +4253,7 @@
 		)
 		(uuid "6cc93589-b734-4a25-898c-c60281a7be2e")
 	)
-	(label "~{CS_BUS}"
+	(label "~{CS}"
 		(at 54.61 102.87 180)
 		(fields_autoplaced yes)
 		(effects
@@ -4334,7 +4264,7 @@
 		)
 		(uuid "70d28fbe-018c-47f3-937a-0cc333f9c69c")
 	)
-	(label "~{CE_FLASH}"
+	(label "~{CE}mem"
 		(at 127 46.99 180)
 		(fields_autoplaced yes)
 		(effects
@@ -4411,7 +4341,7 @@
 		)
 		(uuid "88c24089-0312-4258-9236-3560ec614c72")
 	)
-	(label "RY{slash}~{BY}"
+	(label "~{BY}mem"
 		(at 127 85.09 180)
 		(fields_autoplaced yes)
 		(effects
@@ -4432,6 +4362,17 @@
 			(justify left bottom)
 		)
 		(uuid "8b99ad6f-69bd-4d1a-aa07-27637f21c8ed")
+	)
+	(label "~{OE}mem"
+		(at 246.38 106.68 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8bee34bc-3e3b-4986-8b8f-75e1a39c0810")
 	)
 	(label "ad7"
 		(at 246.38 53.34 0)
@@ -4575,17 +4516,6 @@
 			(justify left bottom)
 		)
 		(uuid "a7001b83-763b-4c97-9833-1112c8a9e9a6")
-	)
-	(label "~{CE_FLASH}"
-		(at 246.38 104.14 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "a9da2825-417a-4a17-aae4-eabe4c8b41ef")
 	)
 	(label "al3"
 		(at 210.82 68.58 180)
@@ -4774,8 +4704,8 @@
 		)
 		(uuid "e1b258d8-d6e6-44c4-a0e0-fe108a9156c5")
 	)
-	(label "~{CS_BUS}"
-		(at 127 100.33 180)
+	(label "~{CS}"
+		(at 127 69.85 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4785,7 +4715,7 @@
 		)
 		(uuid "e26097d4-1497-4679-bac9-028f2bb3afa1")
 	)
-	(label "~{OE_BUS}"
+	(label "~{OE}"
 		(at 54.61 105.41 180)
 		(fields_autoplaced yes)
 		(effects
@@ -4795,17 +4725,6 @@
 			(justify right bottom)
 		)
 		(uuid "e6cc17fa-b248-4052-93ea-4465ee96a4fb")
-	)
-	(label "~{OE_FLASH}"
-		(at 246.38 106.68 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "e73f1c66-5f1b-4882-9b13-0cb84a03fdc1")
 	)
 	(label "ad0"
 		(at 74.93 59.69 0)
@@ -5407,7 +5326,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Value" "cs_MAIN1"
+		(property "Value" "MAIN ROM ~{CS}"
 			(at 182.118 76.2 0)
 			(effects
 				(font
@@ -5474,7 +5393,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Value" "cs_MAIN2A"
+		(property "Value" "T200 M13 ~{CS}"
 			(at 182.118 81.026 0)
 			(effects
 				(font
@@ -5926,7 +5845,7 @@
 	)
 	(symbol
 		(lib_id "000_LOCAL:TestPoint")
-		(at 111.76 105.41 90)
+		(at 114.3 105.41 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5934,7 +5853,7 @@
 		(dnp no)
 		(uuid "06a57adc-dc5c-42ef-87fd-eaed03b8f146")
 		(property "Reference" "TP3"
-			(at 104.902 105.41 90)
+			(at 107.442 105.41 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5942,7 +5861,7 @@
 			)
 		)
 		(property "Value" "VPP"
-			(at 100.076 105.41 90)
+			(at 102.616 105.41 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5950,7 +5869,7 @@
 			)
 		)
 		(property "Footprint" "000_LOCAL:TP_D0.8"
-			(at 111.76 100.33 0)
+			(at 114.3 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5959,7 +5878,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 111.76 100.33 0)
+			(at 114.3 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5968,7 +5887,7 @@
 			)
 		)
 		(property "Description" "test point"
-			(at 111.76 105.41 0)
+			(at 114.3 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6517,7 +6436,7 @@
 	)
 	(symbol
 		(lib_id "power:VPP")
-		(at 111.76 105.41 0)
+		(at 114.3 105.41 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6525,7 +6444,7 @@
 		(dnp no)
 		(uuid "b8f00114-9b41-4032-96cf-3784ac82be3a")
 		(property "Reference" "#PWR08"
-			(at 111.76 109.22 0)
+			(at 114.3 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6534,7 +6453,7 @@
 			)
 		)
 		(property "Value" "VPP"
-			(at 108.458 103.378 0)
+			(at 110.998 103.378 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6542,7 +6461,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 111.76 105.41 0)
+			(at 114.3 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6551,7 +6470,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 111.76 105.41 0)
+			(at 114.3 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6560,7 +6479,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"VPP\""
-			(at 111.76 105.41 0)
+			(at 114.3 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)

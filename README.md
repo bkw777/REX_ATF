@@ -3,30 +3,24 @@
 **NOT WORKING  -  NOT WORKING  -  NOT WORKING**
 
 Do not bother trying to build this yet unless you actually want to help GET it working.  
-Because it DOES NOT WORK yet.
+Because it DOES NOT WORK yet. But it seems to be close...
+
+Current Status:
 
 The code compiles and creates a .pof,  
 and pof2jed creates a .jed,  
 and atmisp creates a .svf,  
-and openocd programs the svf to the device.
+openocd programs the svf to the device.
 
 But if the REX is installed in the option rom socket then it prevents the machine from booting.  
-It's interfering with the bus in some way.
+CSA and CSB (main rom /CS and t200 ext /CS) are low when unconnected, which is activating the REX main rom logic "selecting" the virtual main rom on the rex at all times.  
 
-The shematic and pcb are probably ok because they are a simple translation of the already working [REX Classic](https://github.com/bkw777/REX_Classic), and the VHDL is probably ok because it's not changed from Steve's original, which works on XCR3064.  
-Possible problems to figure out:  
-* Different compile options, default options, default behavior, between Xilinx ISE and Quartus?  
-  Maybe there are some options that ISE and Quartus both have some equivalent feature,  
-  but ISE defaults one way and Quartus defaults a different way, and so in Quartus we may need to  
-  explicitly set some option that didn't have to be mentioned in the ISE project.  
-* Porting error on my part, IE not handling the global clock pins correctly?  The `ale` signal is on a global clock pin, but I have not explicitly set any options in quartus about it. There are also a few options in pof2jed that might need to be used.
-* Feature differences between xcr3064xl and max7064s?  
-  Example, the Xilinx .ucf file specifies internal pullups on several pins,  
-  but it's not clear if MAX7000S or ATF1504AS has that feature, and even if ATF1504 does,  
-  if MAX7000S didn't, then quartus can't generate code for it. So maybe those pins need  
-  external pullups on the PCB? Or maybe the pin-keeper feature is the equivalent?  
-* Timing differences. Maybe the logic is all correct and the behavior of the pins is all correct, but the same code on the ATF ends up not being fast enough due to different implimentation or maybe due to my re-arranged pin assignments.  
-* Maybe POF2JED is not actually producing 100% correct translation. http://forum.6502.org/viewtopic.php?p=84623#p84623
+Externally pulling both pins high allows the machine to run normally.  
+`rf149.co` runs without error.  
+CALL 63012 hangs.
+
+Testing vhdl change to init the pins high.
+Testing moving ALE to a global clock pin, even though it's not on a global clock pin on the xilinx part, but it is declared as a clock in ISE.
 
 ----
 
