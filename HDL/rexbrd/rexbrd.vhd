@@ -129,9 +129,10 @@ entity rexbrd is
 		ad			: inout std_logic_vector(7 downto 0); -- AD0-AD7 from the bus
 		OE			: in std_logic; -- /OE from the bus
 		ALE		: in std_logic; -- ALE from the bus
-		CS			: in std_logic := '1'; -- /CS from the bus - host wants option rom
+		CS			: in std_logic; -- /CS from the bus - host wants option rom
 
 		-- /CS for main/system rom
+		-- these are initialized high here, but still requires pof2jed -pin_keep  to keep them high
 		CSA		: in std_logic := '1'; -- /CS from TP1 - host wants main rom
 		CSB		: in std_logic := '1'; -- /CS from TP2 - host wants the extra 8K rom on Model 200
 

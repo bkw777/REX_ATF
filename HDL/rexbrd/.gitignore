@@ -1,0 +1,18 @@
+# Quartus II project directory
+# Quartus generates a ton of different files.
+# Ignore everything, Include only .qpf, .vhd, .qsf
+
+*
+!.gitignore
+!*.qpf
+!*.qsf
+!*.vhd
+
+# temporarily include the build results
+# because we are not making releases yet
+# because it doesn't actually work yet
+!output_files/
+!*.pof
+!*.jed
+!*.chn
+!*.svf
