@@ -7,31 +7,12 @@ Because it DOES NOT WORK yet. But it seems to be close...
 
 Current Status:
 
-The code compiles and creates a .pof,  
-and pof2jed creates a .jed,  
-and atmisp creates a .svf,  
-openocd programs the svf to the device.
-
-But if the REX is installed in the option rom socket then it prevents the machine from booting.  
-CSA and CSB (main rom /CS and t200 ext /CS) are low when unconnected, which is activating the REX main rom logic "selecting" the virtual main rom on the rex at all times.  
-
-Externally pulling both pins high allows the machine to run normally.  
+The code compiles and creates rexbrd.pof,  
+and pof2jed creates rexbrd.jed,  
+and atmisp creates rexbrd.svf,  
+openocd programs rexbrd.svf to the device.
 `rf149.co` runs without error.  
 CALL 63012 hangs.
-
-Trying both a VHDL change and a project build option to init the pins high.  
-The xilinx UCF file calls out internal pullups on all the control pins including CSA & CSB (cs_MAIN1 & cs_MAIN2A in the original code), but there doesn't see to be an equivalent feature available in MAX7000S.  
-ATF1504AS has a pin keeper feature which might be equivalent, but Quartus isn't actually targeting ATF1504AS, it's targeting EPM7064S.  
-Presumably Prochip would properly know the devices full features, but Prochip is unavailable.  
-Possibly just setting the pin high in VHDL, possibly combined with pof2jed -pin_keep may work.
-
-Mishandled ALE.  
-ALE is the main clock for the design.  
-ALE is on pin 39 on the original Xilinx design, and pin 39 is a GCLK pin on XCR3064.  
-ALE was on pin 39 here too, but pin 39 is not a GCLK pin on ATF1504,  
-so, moved ALE to pin 40, and declred as global clock in pin assignments.
-
-These changes not tested yet.
 
 ----
 
