@@ -1,20 +1,23 @@
-# REX_ATF
-
-**NOT WORKING  -  NOT WORKING  -  NOT WORKING**
+# NOT WORKING
 
 Do not bother trying to build this yet unless you actually want to help GET it working.  
 Because it DOES NOT WORK yet. But it seems to be close...
 
-Current Status:
+## Current Status
 
-The code compiles and creates rexbrd.pof,  
-and pof2jed creates rexbrd.jed,  
-and atmisp creates rexbrd.svf,  
+The code compiles and creates rexbrd.pof.  
+pof2jed creates rexbrd.jed.  
+atmisp creates rexbrd.svf.  
 openocd programs rexbrd.svf to the device.  
+
+The machine still runs normally with the REX installed  
+REX is not waking up or interfreing with the bus when not selected
+
 `rf149.co` runs without error.  
 CALL 63012 hangs.
 
 ----
+# REX_ATF
 
 [REX Classic](http://tandy.wiki/REX) built on Microchip ATF1504 instead of Xilinx XCR3064
 
