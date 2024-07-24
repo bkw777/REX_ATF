@@ -80,6 +80,33 @@ If you have a FT232H module instead of FT232R, then change ft232r to ft232h belo
 # Usage
 Use the normal [REX Classic](http://bitchin100.com/wiki/index.php?title=REXclassic) software and documentation.
 
+Example on linux:
+
+## install dl2
+```
+$ git clone https://github.com/bkw777/dl2.git
+$ cd dl2 && make clean all && sudo make install
+```
+
+## connect 100 to pc by serial
+reference: http://tandy.wiki/Model_T_Serial_Cable  
+https://www.pccables.com/products/00103.html  
+https://www.amazon.com/gp/product/B074VN9ZG4/  
+
+## load the REX firmware
+```
+$ wget https://www.bitchin100.com/wiki/images/3/38/R49_M100T102_260_rebuild.zip
+$ unzip R49_M100T102_260_rebuild.zip
+$ co2ba rf149.co call >rf149.do
+$ dl -vb rf149.do && dl -vu
+```
+(follow the on-screen directions in the terminal and on the 100)  
+Then SHIFT+BREAK+RESET on the 100  
+Then Power-cycle the 100  
+
+## Try to activate the REX
+In BASIC: `CALL 63012`  
+(currently hangs)
 
 # Generating the SVF from the VHDL source
 ![HDL/Compile_HDL.md](HDL/Compile_HDL.md)
