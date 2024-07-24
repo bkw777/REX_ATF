@@ -3,7 +3,7 @@ minimal:
 $ pof2jed rexbrd.pof -verbose -device 1504as
 
 all the options we might want, still to be tested:
-pof2jed rexbrd.pof -verbose -device 1504as -pinclk -pin_keep -MC_power on -power_reset -GCLK1_ITD -GCLK3_ITD -JTAG on -TDI_PULLUP -TMS_PULLUP
+pof2jed rexbrd.pof -verbose -device 1504as -pinclk -pin_keep -MC_power on -power_reset -GCLK3_ITD -JTAG on -TDI_PULLUP -TMS_PULLUP
 
 
 -pinclk        for ALE ? don't know what this exactly does
@@ -21,8 +21,11 @@ pof2jed rexbrd.pof -verbose -device 1504as -pinclk -pin_keep -MC_power on -power
 
 -power_reset   large vcc hysteresis, maybe we want it, maybe we don't, test both
 
--GCLK1_ITD     ALE is on GCLK2, maybe we want to disable the other two?
--GCLK3_ITD     Is that even what this option does? find out.
+-GCLK3_ITD     Prevents the chip partially waking up if the line changes.
+               Probably has no effect in our case.
+               Pin 35 is only an output from our point of view so we're always
+               driving it one way or another and nothing else is, it's only
+               connected the /CE input on the flash chip.
 
 -JTAG on       should already be the default but can't hurt
 
