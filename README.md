@@ -5,13 +5,13 @@ Because it DOES NOT WORK yet. But it seems to be close...
 
 ## Current Status
 
-The VHDL compiles and creates rexbrd.pof.  
-pof2jed creates rexbrd.jed.  
-atmisp creates rexbrd.svf.  
-openocd programs rexbrd.svf to the device.  
+Quartus 13.0 compiles the VHDL and creates `rexbrd.pof`.  
+`pof2jed` creates `rexbrd.jed`.  
+`atmisp` creates `rexbrd.svf`.  
+`openocd` programs `rexbrd.svf` to the device.  
 
-The machine still runs normally with the REX installed  
-REX is not waking up or interfreing with the bus when not selected
+The machine still runs normally with the REX installed.  
+REX is not waking up or interfreing with the bus when not selected.
 
 `rf149.co` runs without error.  
 CALL 63012 hangs.
