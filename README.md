@@ -14,7 +14,7 @@ The machine still runs normally with the REX installed.
 REX is not waking up or interfering with the bus when not selected.
 
 `rf149.co` runs without error.  
-CALL 63012 hangs.
+`CALL 63012` hangs.
 
 ----
 # REX_ATF
