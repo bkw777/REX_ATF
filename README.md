@@ -84,7 +84,7 @@ Use the normal [REX Classic](http://bitchin100.com/wiki/index.php?title=REXclass
 
 Example on linux:
 
-## install dl2
+## install [dl2](https://github.com/bkw777/dl2)
 ```
 $ git clone https://github.com/bkw777/dl2.git
 $ cd dl2 && make clean all && sudo make install
