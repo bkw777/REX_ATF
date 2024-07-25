@@ -42,7 +42,9 @@ $ q13 rexbrd
 
 Press the play button to generate `output_files/rexbrd.pof`  
 
-This produces a `*.pof` which could be used to program a EPM7064S right from within Quartus.
+This produces a `*.pof` which could be used to program an EPM7064S from within Quartus,  
+if we were actually using an EPM7064S.
+
 
 ## Convert POF for EPM7064S to JED for ATF1504AS
 [pof2jed.txt](pof2jed.txt)  
@@ -60,7 +62,11 @@ There is a .chn file that pre-loads the ATF1504ASL device type and other setting
 but you still need to manually select "[x] write to svf file" and enter rexbrd.svf for the svf filename.  
 `$ atmisp rexbrd.chn`
 
+![](atmisp.png)
+
 This produces a `*.svf` which any generic jtag software and hardware can use to program the chip.
+
+# How to flash the .svf to the device
 
 ## Setup JTAG programmer hardware
 https://github.com/bkw777/ATF150x_uDEV/blob/main/programming.md#hardware)  
@@ -74,5 +80,8 @@ RTS-TDO
 ![](prg2.jpg)
 ![](prg3.jpg)
 
-## Program the SVF to the chip
-https://github.com/bkw777/ATF150x_uDEV/blob/main/programming.md#program-the-device-with-the-svf
+## Program the SVF to the device
+https://github.com/bkw777/ATF150x_uDEV/blob/main/programming.md#program-the-device-with-the-svf  
+
+`$ atfsvf ft232r ATF1504ASL rexbrd.svf`
+
