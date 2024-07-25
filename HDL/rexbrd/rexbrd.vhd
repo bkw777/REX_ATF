@@ -7,7 +7,7 @@
 --
 -- Use Quartus II 13.0sp1 to generate POF for EPM7064STC44-10,
 -- then POF2JED to convert POF to JED for ATF1504ASL-xAx44,
--- $ pof2jed -verbose -device 1504as -JTAG on -TDI_PULLUP -TMS_PULLUP -i rexbrd.pof -o rexbrd.jed
+-- $ pof2jed -verbose -device 1504as -JTAG on -TDI_PULLUP -TMS_PULLUP -pin_keep -i rexbrd.pof -o rexbrd.jed
 -- then ATMISP to convert JED to SVF,
 -- https://github.com/bkw777/ATF150x_uDEV/blob/main/programming.md#convert-the-jed-to-svf
 -- then OpenOCD and a generic usb FT232R or FT232H module
@@ -132,9 +132,15 @@ entity rexbrd is
 		CS			: in std_logic; -- /CS from the bus - host wants option rom
 
 		-- /CS for main/system rom
-		-- these are initialized high here, but still requires pof2jed -pin_keep  to keep them high
-		CSA		: in std_logic := '1'; -- /CS from TP1 - host wants main rom
-		CSB		: in std_logic := '1'; -- /CS from TP2 - host wants the extra 8K rom on Model 200
+		-- We need these to be pulled up, but there doesn't seem to be an equivalent
+		-- of the xilinx internal pullup feature for MAX7000S devices in Quartus.
+		-- Maybe ATF1504ASL actually has it and maybe Prochip would know how to use it
+		-- but Prochip isn't available. Maybe WinCUPL can do it but we'd have to rewrite
+		-- the whole thing in CUPL.
+		-- Maybe the yosys can do it but that is a project yet to be figured out.
+		-- Add external pullups. We only need 2 and there is room on the pcb. blah...
+		CSA		: in std_logic; -- /CS from TP1 - host wants main rom
+		CSB		: in std_logic; -- /CS from TP2 - host wants the extra 8K rom on Model 200
 
 		--  Memory interface signals
 		au			: out std_logic_vector(19 downto 15); -- A15-A19 to mem
@@ -222,6 +228,7 @@ constant model : std_logic_vector(1 downto 0) := '0' & '1';  -- no ram suport, r
 constant FW_version : std_logic_vector(5 downto 0) :="0110" & model;
 
 begin
+
 ------------------------------------------------------------------------
 -- create a delayed internal ALE 
 -- first one toggles down on ALE falling edge
@@ -272,9 +279,8 @@ begin
 
 end process;
 
-
 CSB_i <= '0' when (CSA = '1' and CSB = '0') else '1';
--- this is needed because of extra chip select of A15 on 8k ROM
+-- this is needed because of the extra chip select of A15 on 8k ROM on T200
 
 rex_active <= (CS and CSA and CSB_i) when state = "111" else CS;	-- if either is 0 then result 0
 
@@ -528,7 +534,7 @@ cs_MAIN_v <= CSA & CSB_i;
 process (cs_MAIN_v, romsel, sector)
 begin
 	case cs_MAIN_v is
-	when "01" =>		--  romsel =0, 2 and 3 are grouped, romsel = 1, 4 and 5 are grouped
+	when "01" =>		--  romsel = 0, 2 and 3 are grouped, romsel = 1, 4 and 5 are grouped
 		au(19 downto 15) <= '0' & '0' & romsel & not(romsel) & '0';
 	when "10" =>
 		au(19 downto 15) <= '0' & '0' & romsel & not(romsel) & '1';	

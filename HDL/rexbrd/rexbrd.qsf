@@ -87,7 +87,4 @@ set_location_assignment PIN_42 -to CS
 set_location_assignment PIN_37 -to OE
 set_location_assignment PIN_35 -to CEmem
 set_location_assignment PIN_11 -to CSA
-set_instance_assignment -name POWER_UP_LEVEL HIGH -to PIN_11
-set_instance_assignment -name POWER_UP_LEVEL HIGH -to PIN_12
-set_instance_assignment -name POWER_UP_LEVEL HIGH -to PIN_42
-set_instance_assignment -name GLOBAL_SIGNAL "GLOBAL CLOCK" -to PIN_40
+set_instance_assignment -name GLOBAL_SIGNAL "GLOBAL CLOCK" -to ALE
