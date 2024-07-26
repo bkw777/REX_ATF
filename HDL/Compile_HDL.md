@@ -56,10 +56,12 @@ $ pof2jed rexbrd -verbose -device 1504as -MC_power on -power_reset -GCLK3_ITD -J
 This produces a `*.jed` which could be used by ATMISP to program a ATF1504ASL if you had an ATDH1150USB programmer.
 
 ## Convert JED to SVF
-ATMISP can not program the JED to the chip with any other kind of programmer except exactly a $90 ATDH1150USB, but it can read the JED and write out a SVF file.  
+ATMISP can not program the JED to the chip with any other kind of programmer except ATDH1150USB ($90+), but it can read the JED and write out a SVF file.  
 https://github.com/bkw777/ATF150x_uDEV/blob/main/programming.md#convert-the-jed-to-svf  
-There is a .chn file that pre-loads the ATF1504ASL device type and other settings,  
-but you still need to manually select "[x] write to svf file" and enter rexbrd.svf for the svf filename.  
+There is a `.chn` file provided that pre-loads most settings,  
+but you still need to manually select `[x] Write SVF file`,  
+and enter `rexbrd.svf` under `SVF File Name`.  
+
 `$ atmisp rexbrd.chn`
 
 ![](atmisp.png)
