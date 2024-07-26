@@ -1,22 +1,12 @@
 
 minimal:
-$ pof2jed rexbrd.pof -verbose -device 1504as -pin_keep
+$ pof2jed rexbrd.pof -verbose -device 1504as
 
 all the options we might want, still to be tested:
 pof2jed rexbrd.pof -verbose -device 1504as -pinclk -pin_keep -MC_power on -power_reset -GCLK3_ITD -JTAG on -TDI_PULLUP -TMS_PULLUP
 
 
 -pinclk        for ALE ? don't know what this exactly does
-
--pin_keep      for CSA & CSB
-               The VHDL initiallizes the pins high, but this is required to keep them high.
-               It's working at least in so far as the pins are being held high,
-               the rex is not selecting itself and corrupting the bus,
-               and the machine runs normally as long as the option rom isn't accessed.
-               unknown yet: does this drive the pin or merely pullup? (will the main rom feature be usable?)
-               unknown yet: will this cause other pins to fight the bus?
-               If we can't replicate the Xilinx internal pullup behavior,
-               there is plenty of pcb space for 2 external pullup resistors.
 
 -MC_power on   definitely want the chip to sleep as much as possible
                but make sure it doesn't make it too slow
@@ -36,8 +26,11 @@ pof2jed rexbrd.pof -verbose -device 1504as -pinclk -pin_keep -MC_power on -power
 
 -slew          who knows... try all
 
+-pin_keep      not appropriate for this application I think
+
 -secure        DO NOT USE - This will make the chip unprogrammable any more.
                VPP does NOT overcome this!
+
 
 -------------------------------------------------------------------------------
 
