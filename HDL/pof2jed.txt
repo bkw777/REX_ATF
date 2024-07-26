@@ -3,7 +3,7 @@ minimal:
 $ pof2jed rexbrd.pof -verbose -device 1504as
 
 all the options we might want, still to be tested:
-$ pof2jed rexbrd.pof -verbose -device 1504as -pinclk -pin_keep -MC_power on -power_reset -GCLK3_ITD -JTAG on -TDI_PULLUP -TMS_PULLUP
+$ pof2jed rexbrd.pof -verbose -device 1504as -pinclk -MC_power on -power_reset -GCLK3_ITD -JTAG on -TDI_PULLUP -TMS_PULLUP
 
 
 -pinclk        for ALE ? don't know what this exactly does
