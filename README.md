@@ -5,7 +5,7 @@ Because it DOES NOT WORK yet. But it seems to be close...
 
 ## Current Status
 
-Can't figure out a way to replicate or emulate or translate the Xilinx internal pullup feature while using the Quartus -> EPM7064S -> POF2JED workflow, so at least for now we have actual pullup resistors on the CSA & CSB pins. All other pins should be ok since they are connected to the bus.
+Can't figure out a way to replicate the Xilinx internal pullup feature while using the Quartus -> EPM7064S -> POF2JED workflow, so at least for now we have actual pullup resistors on the CSA & CSB pins. All other pins should be ok since they are connected to the bus.
 
 Quartus 13.0 compiles the VHDL and creates `rexbrd.pof`.  
 `pof2jed` creates `rexbrd.jed`.  
