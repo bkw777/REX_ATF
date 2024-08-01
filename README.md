@@ -12,8 +12,7 @@ Quartus 13.0 compiles the VHDL and creates `rexbrd.pof`.
 `atmisp` creates `rexbrd.svf`.  
 `openocd` programs `rexbrd.svf` to the device.  
 
-The machine still runs normally with the REX installed.  
-REX is not waking up or interfering with the bus when not selected.
+The machine still runs normally with the REX installed, so at least the REX is not waking up and interfering with the bus when not selected.
 
 `rf149.co` runs without error.  
 `CALL 63012` hangs.
