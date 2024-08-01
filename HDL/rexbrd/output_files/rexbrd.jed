@@ -1,6 +1,6 @@
  Version 4.45.1 
 JEDEC file for: ATF1504 TQFP44
-Created on: Thu Jul 25 12:52:41 2024
+Created on: Thu Aug 01 12:55:07 2024
 
 *
 QF34192* QP44 * F0*
@@ -988,7 +988,7 @@ L34125 111111110*  NOTE GOE5*
 
 NOTE  device configuration bits*
 NOTE    0         0         0         0*
-L34134 01110010000011010011001000111111*
+L34134 00110010000011010011001000111111*
 
 NOTE  Special Purpose Bits (JTAG) *
 L34166 1111*
@@ -999,5 +999,5 @@ L34170 0011000000000000*
 NOTE  Reserved bits *
 L34186 000000*
 
-C7783*
+C7703*
 0000

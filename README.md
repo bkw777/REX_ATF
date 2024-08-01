@@ -54,7 +54,7 @@ Carrier: http://shpws.me/SGGB
 (cad model source: https://github.com/bkw777/Molex78802_Module )
 
 # Programming the CPLD
-Install [openocd](https://openocd.org/) and a [wrapper script](https://github.com/bkw777/ATF150x_uDEV/blob/main/bin/atfsvf):  
+Install [openocd](https://openocd.org/) and a wrapper script [atfsvf](https://github.com/bkw777/ATF150x_uDEV/blob/main/bin/atfsvf):  
 ```
 $ sudo apt install openocd
 $ wget https://github.com/bkw777/ATF150x_uDEV/raw/main/bin/atfsvf

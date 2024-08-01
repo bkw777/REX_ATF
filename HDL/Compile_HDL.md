@@ -53,7 +53,7 @@ if we were actually using an EPM7064S.
 [pof2jed.txt](pof2jed.txt)  
 ```
 $ cd output_files
-$ pof2jed rexbrd -verbose -device 1504as -MC_power on -power_reset -GCLK3_ITD -JTAG on -TDI_PULLUP -TMS_PULLUP
+$ pof2jed rexbrd -verbose -device 1504as -pinclk -pin_keep -MC_power on -power_reset -GCLK3_ITD -JTAG on -TDI_PULLUP -TMS_PULLUP
 ```
 Ignore the warning message about the JTAG pins.
 

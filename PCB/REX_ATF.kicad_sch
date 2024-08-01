@@ -1169,7 +1169,7 @@
 				(pin power_in line
 					(at 1.27 35.56 270)
 					(length 3.81)
-					(name "VCCB"
+					(name "VCCINT"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1403,7 +1403,7 @@
 				(pin power_in line
 					(at -1.27 35.56 270)
 					(length 3.81)
-					(name "VCCA"
+					(name "VCCIO"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1655,7 +1655,7 @@
 				(pin power_in line
 					(at 3.81 35.56 270)
 					(length 3.81)
-					(name "VCCB"
+					(name "VCCINT"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1799,7 +1799,7 @@
 				(pin power_in line
 					(at -3.81 35.56 270)
 					(length 3.81)
-					(name "VCCA"
+					(name "VCCIO"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -3542,10 +3542,10 @@
 		(uuid "409905ad-7c52-4302-8fb4-0a0540f4b99b")
 	)
 	(junction
-		(at 106.68 104.14)
+		(at 101.6 104.14)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "4eecc1dd-badb-4b05-8670-53beb217d9ee")
+		(uuid "4fb71ae6-93a4-4898-b144-7e6eb5135ea3")
 	)
 	(junction
 		(at 227.33 119.38)
@@ -3645,7 +3645,7 @@
 	)
 	(no_connect
 		(at 113.03 101.6)
-		(uuid "243394af-4d7e-42bc-9584-5d78eb09a1ca")
+		(uuid "7d2c2860-7dee-4d89-8b27-f120f42caf1b")
 	)
 	(no_connect
 		(at 40.64 69.85)
@@ -3681,16 +3681,6 @@
 	)
 	(wire
 		(pts
-			(xy 106.68 104.14) (xy 113.03 104.14)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "01859a5a-7b67-483c-ad2c-91b538e2ff73")
-	)
-	(wire
-		(pts
 			(xy 246.38 83.82) (xy 246.38 86.36)
 		)
 		(stroke
@@ -3718,6 +3708,16 @@
 			(type default)
 		)
 		(uuid "0652028a-03fc-49ec-8157-278734fd2cb8")
+	)
+	(wire
+		(pts
+			(xy 101.6 104.14) (xy 113.03 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "072ef0b0-161a-4450-ac59-81f70f699463")
 	)
 	(wire
 		(pts
@@ -6024,7 +6024,7 @@
 	)
 	(symbol
 		(lib_id "000_LOCAL:TestPoint")
-		(at 106.68 104.14 90)
+		(at 101.6 104.14 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6032,7 +6032,7 @@
 		(dnp no)
 		(uuid "06a57adc-dc5c-42ef-87fd-eaed03b8f146")
 		(property "Reference" "TP3"
-			(at 99.822 104.14 90)
+			(at 94.234 103.378 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6040,7 +6040,7 @@
 			)
 		)
 		(property "Value" "VPP"
-			(at 94.996 104.14 90)
+			(at 101.6 100.076 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6048,7 +6048,7 @@
 			)
 		)
 		(property "Footprint" "000_LOCAL:TP_D0.8"
-			(at 106.68 99.06 0)
+			(at 101.6 99.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6057,7 +6057,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 106.68 99.06 0)
+			(at 101.6 99.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6066,7 +6066,7 @@
 			)
 		)
 		(property "Description" "test point"
-			(at 106.68 104.14 0)
+			(at 101.6 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6682,7 +6682,7 @@
 	)
 	(symbol
 		(lib_id "power:VPP")
-		(at 106.68 104.14 0)
+		(at 101.6 104.14 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6690,7 +6690,7 @@
 		(dnp no)
 		(uuid "b8f00114-9b41-4032-96cf-3784ac82be3a")
 		(property "Reference" "#PWR08"
-			(at 106.68 107.95 0)
+			(at 101.6 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6699,7 +6699,7 @@
 			)
 		)
 		(property "Value" "VPP"
-			(at 103.378 102.108 0)
+			(at 94.234 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6707,7 +6707,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 106.68 104.14 0)
+			(at 101.6 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6716,7 +6716,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 106.68 104.14 0)
+			(at 101.6 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6725,7 +6725,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"VPP\""
-			(at 106.68 104.14 0)
+			(at 101.6 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)

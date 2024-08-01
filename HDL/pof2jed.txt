@@ -3,7 +3,7 @@ minimal:
 $ pof2jed rexbrd.pof -verbose -device 1504as
 
 all the options we might want, still to be tested:
-$ pof2jed rexbrd.pof -verbose -device 1504as -pinclk -MC_power on -power_reset -GCLK3_ITD -JTAG on -TDI_PULLUP -TMS_PULLUP
+$ pof2jed rexbrd.pof -verbose -device 1504as -pin_keep -pinclk -MC_power on -power_reset -GCLK3_ITD -JTAG on -TDI_PULLUP -TMS_PULLUP
 
 
 -pinclk        for ALE ? don't know what this exactly does
@@ -21,12 +21,15 @@ $ pof2jed rexbrd.pof -verbose -device 1504as -pinclk -MC_power on -power_reset -
 
 -JTAG on       should already be the default but can't hurt
 
--TDI_PULLUP    not strictly necessary, but the jtag pins are floating inputs
+-TDI_PULLUP    the jtag pins are floating inputs normally
 -TMS_PULLUP
 
--slew          who knows... try all
+-slew          who knows...
 
--pin_keep      not appropriate for this application I think
+-pin_keep      I think we want this to keep pins 38 and 39 from flapping.
+               The only unused pins are 38 and 39, and they are both input-only pins,
+               so the assignment->device->pins->unused setting
+               "output driving unspecified signal" does not apply.
 
 -secure        DO NOT USE - This will make the chip unprogrammable any more.
                VPP does NOT overcome this!

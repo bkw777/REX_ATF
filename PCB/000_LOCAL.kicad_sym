@@ -2245,7 +2245,7 @@
 			(pin power_in line
 				(at 1.27 35.56 270)
 				(length 3.81)
-				(name "VCCB"
+				(name "VCCINT"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -2479,7 +2479,7 @@
 			(pin power_in line
 				(at -1.27 35.56 270)
 				(length 3.81)
-				(name "VCCA"
+				(name "VCCIO"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -2731,7 +2731,7 @@
 			(pin power_in line
 				(at 3.81 35.56 270)
 				(length 3.81)
-				(name "VCCB"
+				(name "VCCINT"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -2875,7 +2875,7 @@
 			(pin power_in line
 				(at -3.81 35.56 270)
 				(length 3.81)
-				(name "VCCA"
+				(name "VCCIO"
 					(effects
 						(font
 							(size 1.27 1.27)
