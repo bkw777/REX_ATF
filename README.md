@@ -15,6 +15,7 @@ Quartus 13.0 compiles the VHDL and creates `rexbrd.pof`.
 The machine still runs normally with the REX installed, so at least the REX is not waking up and interfering with the bus when not selected.
 
 `rf149.co` runs without error.  
+The "wiping blocks" stage goes way too fast.  
 `CALL 63012` hangs.
 
 ----
