@@ -1,11 +1,17 @@
 # NOT WORKING
 
+If you just want a REX, buy a [REX#](https://bitchin100.com/wiki/index.php?title=REXsharp) or build a [REX Classic](https://github.com/bkw777/REX_Classic).
+
+This is is an attempt to port REX Classic to a different CPLD chip.  
+REX Classic is built around the Xilinx XCR3064XL, which is discontinued.  
+ATF1504AS is a similar part that is still available.  
 Do not bother trying to build this yet unless you actually want to help GET it working.  
-Because it DOES NOT WORK yet. But it seems to be close...
+Because it DOES NOT WORK yet. But it seems to be close...  
+
 
 ## Current Status
 
-Can't figure out a way to replicate the Xilinx internal pullup feature while using the Quartus -> EPM7064S -> POF2JED workflow, so at least for now we have actual pullup resistors on the CSA & CSB pins. All other pins should be ok since they are connected to the bus.
+Can't figure out a way to replicate the Xilinx internal pullup feature while using the Quartus -> EPM7064S -> POF2JED workflow, so at least for now we have external pullup resistors on the CSA & CSB pins (formerly TP1 & TP2). All other pins should be ok since they are connected to the bus.
 
 Quartus 13.0 compiles the VHDL and creates `rexbrd.pof`.  
 `pof2jed` creates `rexbrd.jed`.  
@@ -17,6 +23,8 @@ The machine still runs normally with the REX installed, so at least the REX is n
 `rf149.co` runs without error.  
 The "wiping blocks" stage goes way too fast.  
 `CALL 63012` hangs.
+
+TODO: observe the bus with https://github.com/bkw777/Molex_7880x_bus_tap
 
 ----
 # REX_ATF
