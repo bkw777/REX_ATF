@@ -4,7 +4,7 @@ If you just want a REX, buy a [REX#](https://bitchin100.com/wiki/index.php?title
 
 This is is an attempt to port REX Classic to a different CPLD chip.  
 REX Classic is built around the Xilinx XCR3064XL, which is discontinued.  
-ATF1504AS is a similar part that is still available.  
+ATF1504ASL is a similar part that is still available.  
 Do not bother trying to build this yet unless you actually want to help GET it working.  
 Because it DOES NOT WORK yet. But it seems to be close...  
 
