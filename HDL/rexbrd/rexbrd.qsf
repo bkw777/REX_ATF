@@ -70,7 +70,6 @@ set_location_assignment PIN_22 -to au[17]
 set_location_assignment PIN_25 -to ad[2]
 set_location_assignment PIN_44 -to al[2]
 set_global_assignment -name MAX7000_DEVICE_IO_STANDARD TTL
-set_global_assignment -name VHDL_FILE rexbrd.vhd
 set_global_assignment -name OPTIMIZE_HOLD_TIMING OFF
 set_global_assignment -name OPTIMIZE_MULTI_CORNER_TIMING OFF
 set_global_assignment -name FITTER_EFFORT "STANDARD FIT"
@@ -79,12 +78,17 @@ set_global_assignment -name MAX7000_USE_CHECKSUM_AS_USERCODE ON
 set_global_assignment -name VHDL_SHOW_LMF_MAPPING_MESSAGES OFF
 set_global_assignment -name ENABLE_DRC_SETTINGS ON
 set_location_assignment PIN_6 -to WEmem
-set_location_assignment PIN_5 -to BYmem
+set_location_assignment PIN_42 -to BYmem
 set_location_assignment PIN_40 -to ALE
 set_location_assignment PIN_34 -to OEmem
 set_location_assignment PIN_12 -to CSB
-set_location_assignment PIN_42 -to CS
 set_location_assignment PIN_37 -to OE
 set_location_assignment PIN_35 -to CEmem
 set_location_assignment PIN_11 -to CSA
-set_instance_assignment -name GLOBAL_SIGNAL "GLOBAL CLOCK" -to ALE
+
+set_global_assignment -name VHDL_FILE regis.vhd
+set_global_assignment -name VHDL_FILE regis_vector.vhd
+set_global_assignment -name VHDL_FILE rexbrd.vhd
+
+set_location_assignment PIN_5 -to CS
+set_global_assignment -name RESERVE_ALL_UNUSED_PINS_NO_OUTPUT_GND "AS INPUT TRI-STATED"

@@ -2,8 +2,6 @@
 --
 -- 20240708 Brian K. White - b.kenyon.w@gmail.com
 -- Port from Xilinx XCR3064 to Microchip ATF1504
--- No changes to the VHDL logic.
--- There are changes to pin assignments, labels, comments, and formatting.
 --
 -- Use Quartus II 13.0sp1 to generate POF for EPM7064STC44-10,
 -- then POF2JED to convert POF to JED for ATF1504ASL-xAx44,
@@ -45,86 +43,16 @@
 -- REX2 must be supported from a specific REX2 build.
 
 ------------------------------------------------------------------------
--- define a positive edge triggered clock register
-------------------------------------------------------------------------
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.STD_LOGIC_ARITH.ALL;
-use IEEE.STD_LOGIC_UNSIGNED.ALL;
-
-entity regis is
-	port (
-		rst, clk, clk_en, clr, default 	: in std_logic;
-		input						: in std_logic;
-		output					: out std_logic
-	);
-end regis;
-
-architecture regis_rtl of regis is
-begin
-process(rst, clk, clk_en, clr, default, input)
-	begin
-		if (rst='1') then
-			output <= default;
-		elsif (clr='1') then
-			output <= default;
-		elsif  (clk_en = '1') then
-   			if (clk'event and clk='1') then
-			  	output <= input;
-		  	end if;
-		end if;
-	end process;
-end regis_rtl;
-
-------------------------------------------------------------------------
--- define a positive edge triggered clock register vector
-------------------------------------------------------------------------
-
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.STD_LOGIC_ARITH.ALL;
-use IEEE.STD_LOGIC_UNSIGNED.ALL;
-
-entity regis_vector is
-	port (
-		rst, clk, clk_en, clr, default 	: in std_logic;
-		input					: in std_logic_vector;
-		output					: out std_logic_vector
-	);
-end regis_vector;
-
-architecture regis_rtl_vector of regis_vector is
-begin
-	reg_gen: for ix in input'RANGE generate
-	begin
-		process(rst, clk, clk_en, clr, default, input)
-		begin
-			if (rst='1') then
-				output(ix) <= default;
-			elsif (clr='1') then
-				output(ix) <= default;
-			elsif  (clk_en = '1') then
-				if (clk'event and clk='1') then
-					output(ix) <= input(ix);
-				end if;
-			end if;
-		end process;
-	end generate reg_gen;
-end regis_rtl_vector;
-
-
-
-------------------------------------------------------------------------
 -- define a REX
 ------------------------------------------------------------------------
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.STD_LOGIC_ARITH.ALL;
-use IEEE.STD_LOGIC_UNSIGNED.ALL;
+library ieee;
+use ieee.std_logic_1164.all;
+library altera;
+use altera.altera_syn_attributes.all;
 
 entity rexbrd is
 	port (
-
+-- {ALTERA_IO_BEGIN} DO NOT REMOVE THIS LINE!
 		-- M100 interface signals
 		ad			: inout std_logic_vector(7 downto 0); -- AD0-AD7 from the bus
 		OE			: in std_logic; -- /OE from the bus
@@ -132,13 +60,9 @@ entity rexbrd is
 		CS			: in std_logic; -- /CS from the bus - host wants option rom
 
 		-- /CS for main/system rom
-		-- We need these to be pulled up, but there doesn't seem to be an equivalent
-		-- of the xilinx internal pullup feature for MAX7000S devices in Quartus.
-		-- Maybe ATF1504ASL actually has it and maybe Prochip would know how to use it
-		-- but Prochip isn't available. Maybe WinCUPL can do it but we'd have to rewrite
-		-- the whole thing in CUPL.
-		-- Maybe the yosys can do it but that is a project yet to be figured out.
-		-- Add external pullups. We only need 2 and there is room on the pcb. blah...
+		-- Add external pullups on these 2 pins.
+		-- The original Xilinx XCR3064XL project uses internal pullups (in the UCF file),
+		-- but neither the EPM7064S nor ATF1504ASL seems to have that feature.
 		CSA		: in std_logic; -- /CS from TP1 - host wants main rom
 		CSB		: in std_logic; -- /CS from TP2 - host wants the extra 8K rom on Model 200
 
@@ -149,12 +73,14 @@ entity rexbrd is
 		CEmem		: out std_logic; -- /CE to mem
 		OEmem		: out std_logic; -- /OE to mem
 		BYmem		: in std_logic -- RY/BY from mem
-
+-- {ALTERA_IO_END} DO NOT REMOVE THIS LINE!
 	);
+-- {ALTERA_ATTRIBUTE_BEGIN} DO NOT REMOVE THIS LINE!
+-- {ALTERA_ATTRIBUTE_END} DO NOT REMOVE THIS LINE!
 end rexbrd;
 
 architecture rex_rtl of rexbrd is
-
+-- {ALTERA_COMPONENTS_BEGIN} DO NOT REMOVE THIS LINE!
 
 ------------------------------------------------------------------------
 -- instatiate the positive edge triggered register
@@ -162,7 +88,7 @@ architecture rex_rtl of rexbrd is
 component regis is
 	port (
 		rst, clk, clk_en, clr, default, input	: in std_logic;
-		output					: out std_logic
+		output											: out std_logic
 	);
 end component;
 
@@ -172,62 +98,64 @@ end component;
 ------------------------------------------------------------------------
 component regis_vector is
 	port (
-		rst, clk, clk_en, clr, default 	: in std_logic;
-		input				: in std_logic_vector;
-		output				: out std_logic_vector
+		rst, clk, clk_en, clr, default 			: in std_logic;
+		input												: in std_logic_vector;
+		output											: out std_logic_vector
 	);
 end component;
 
+-- {ALTERA_COMPONENTS_END} DO NOT REMOVE THIS LINE!
 
 -- SIGNAL definitions ------------------------------------------------------------------------------------------
 
-signal al_lo, al_reg_in, gp_reg_in, gp_data		: std_logic_vector(7 downto 0);
-signal nState, state					: std_logic_vector(2 downto 0);
-signal ad_in						: std_logic_vector(7 downto 0);
-signal ad_dir, al_en					: std_logic;
-signal sector						: std_logic_vector(4 downto 0);
-signal sector_en					: std_logic;
-signal gp_en, counter_on				: std_logic;
-signal ad_data, ad_reg_in				: std_logic_vector(7 downto 0);
-signal ad_out_en  					: std_logic;
+signal al_lo, al_reg_in, gp_reg_in, gp_data	: std_logic_vector(7 downto 0);
+signal nState, state									: std_logic_vector(2 downto 0);
+signal ad_in											: std_logic_vector(7 downto 0);
+signal ad_dir, al_en									: std_logic;
+signal sector											: std_logic_vector(4 downto 0);
+signal sector_en										: std_logic;
+signal gp_en, counter_on							: std_logic;
+signal ad_data, ad_reg_in							: std_logic_vector(7 downto 0);
+signal ad_out_en  									: std_logic;
 
-signal rex_active, romsel, CSB_i			: std_logic;
-signal cs_MAIN_v					: std_logic_vector(1 downto 0);
+signal rex_active, romsel, CSB_i					: std_logic;
+signal cs_MAIN_v										: std_logic_vector(1 downto 0);
 
-signal rst						: std_logic;
+signal rst										: std_logic;
 
-signal s_en, a1_en, ad_en				: std_logic;
-signal ce_rex, we_rex, oe_rex				: std_logic;
+signal s_en, a1_en, ad_en							: std_logic;
+signal ce_rex, we_rex, oe_rex						: std_logic;
 
-signal count, nCount					:std_logic_vector(2 downto 0);
-signal count_clr					:std_logic;
-signal key_vector					:std_logic_vector(10 downto 0);
+signal count, nCount									: std_logic_vector(2 downto 0);
+signal count_clr										: std_logic;
+signal key_vector										: std_logic_vector(10 downto 0);
 
-signal control, nControl				: std_logic;
+signal control, nControl							: std_logic;
 
 signal ale_int, ale_high_pulse, ale_clr, ale_count	: std_logic;
 
-signal default_vector					: std_logic_vector(25 downto 0);
+signal default_vector								: std_logic_vector(25 downto 0);
 
 
 --------------------------------------------------------------------------------------------------------
 
-constant HW_version : std_logic_vector(7 downto 6) :="00"; 
+constant HW_version 									: std_logic_vector(7 downto 6) :="00";
 -- HW 00 = REX
 -- HW 01 = REX2
 -- HW 10 = unassigned
 -- HW 11 = unassigned
 
-constant model : std_logic_vector(1 downto 0) := '0' & '1';  -- no ram suport, rom supported
+constant model 										: std_logic_vector(1 downto 0) := '0' & '1';  -- no ram suport, rom supported
 
 -- model 00 = base model + no extra features 							(valid with HW 00, 01)
 -- model 01 = base model + main rom replacement  						(valid with HW 00, 01)
 -- model 10 = base model + RAM support  									(valid with HW 01)
 -- model 11 = base model + main rom replacement + RAM support  	(valid with HW 01)
 
-constant FW_version : std_logic_vector(5 downto 0) :="0110" & model;
+constant FW_version 									: std_logic_vector(5 downto 0) :="0110" & model;
 
 begin
+-- {ALTERA_INSTANTIATION_BEGIN} DO NOT REMOVE THIS LINE!
 
 ------------------------------------------------------------------------
 -- create a delayed internal ALE 
@@ -235,12 +163,9 @@ begin
 -- reset by ale_clr
 -- FF power up default is '1', and default on clear/reset is '1'
 ------------------------------------------------------------------------
-ale_clr_flop:		regis port map ('0',      ALE, '1', ale_clr, '1', '0', ale_high_pulse);
+ale_clr_flop:		regis port map ('0',     ALE,  '1', ale_clr, '1', '0', ale_high_pulse);
 ale_int_flop:		regis port map ('0', not(ALE), '1', ale_clr, '1', '0', ale_int);
-
 ale_clr <= '1' when ALE='1' and (ale_int='0' or ale_high_pulse='0') else '0';
-
-
 
 ------------------------------------------------------------------------
 -- reset circuit
@@ -293,7 +218,7 @@ WEmem <= we_rex or rex_active or OE;
 ------------------------------------------------------------------------
 key_vector <= ad_in & count;
 
-process (	state, ad_in, ALE, OE, BYmem, sector, romsel, ad_data, key_vector, control)
+process ( state, ad_in, ALE, OE, BYmem, sector, romsel, ad_data, key_vector, control)
 begin
 
 case state is
@@ -516,12 +441,11 @@ state_reg: 	regis_vector 	port map (rst, not(ale_int), not(CS), '0', '1', nState
 ------------------------------------------------------------------------
 -- create the sector register, default sector is 00000
 ------------------------------------------------------------------------
-
 sector_0: 	regis_vector 	port map (rst, not(ale_int), s_en, '0', '0', ad_in(4 downto 0), sector);
 
 
-s_en <= sector_en and not(CS);
 sector_en <= '1' when state = "001" else '0';
+s_en <= sector_en and not(CS);
 
 ------------------------------------------------------------------------
 -- select the output of lvau to be sector when optrom selected, or 
@@ -546,7 +470,6 @@ end process;
 
 rom_selector: 	regis 	port map (rst, not(ale_int), s_en, '0', '0', ad_in(6), romsel);	
 
-
 ------------------------------------------------------------------------
 -- create the al register
 -- active whenever REX is active
@@ -564,7 +487,6 @@ a1_en <= al_en and not(rex_active);
 ad_in <= "00000000" when ad_out_en = '0' else ad;
 ad <= ad_data when ad_out_en='0' else "ZZZZZZZZ";
 ad_out_en <=  ad_dir or OE or CS;
-
 
 ------------------------------------------------------------------------
 -- create the general purpose register, used for ad and for counter
@@ -587,5 +509,5 @@ count <= gp_data(7 downto 5);
 nCount(0) <= not(count(0)) and not(count_clr);		-- counts when count_clr = 0, cleared when count_clr = '1'
 nCount(1) <= (count(1) xor count(0)) and not(count_clr);
 nCount(2) <= (count(2) xor (count(1) and count(0))) and not(count_clr);
-
+-- {ALTERA_INSTANTIATION_END} DO NOT REMOVE THIS LINE!
 end rex_rtl;
