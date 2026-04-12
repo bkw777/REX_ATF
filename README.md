@@ -58,8 +58,8 @@ https://www.digikey.com/en/products/detail/yageo/CC0805KKX7R7BB105/2103103
 
 Gerbers & CPLD bitstream in [releases](../../releases/latest). (not working yet, so no release yet)
 
-Carrier: http://shpws.me/SGGB  
-(cad model source: https://github.com/bkw777/Molex78802_Module )
+Carrier: https://shop.jawstec.com/3d-printed-molex-78802-pcb-carrier_p641.php?id=641  
+(https://github.com/bkw777/Molex78802_Module/blob/master/Carrier/Molex78802_PCB_28.stl)
 
 # Programming the CPLD
 Install [openocd](https://openocd.org/) and a wrapper script [atfsvf](https://github.com/bkw777/ATF150x_uDEV/blob/main/bin/atfsvf):  

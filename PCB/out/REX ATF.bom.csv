@@ -1,0 +1,5 @@
+"Reference","Value","Datasheet","Footprint","Qty","DNP","MPN","Description"
+"C1,C2","1u","datasheets/CL21B105KAFNNNE.pdf","000_LOCAL:C_0805","2","","CL21B105KAFNNNE","1 µF ±10% 25V Ceramic Capacitor X7R 0805"
+"R1,R2","47K","datasheets/PYU-RC_GROUP_51_ROHS_L.pdf","000_LOCAL:R_0805","2","","RC0805JR-0747KL","R 47k 0805"
+"U1","ATF1504ASL-xAx44","datasheets/ATF1504AS.pdf","000_LOCAL:VQFP44","1","","ATF1504ASL-25AU44","ATMEL Altera Microchip 64-Macrocell CPLD, VQFP-44"
+"U2","29F800BB","datasheets/M29F800.pdf","000_LOCAL:TSOP-48","1","","M29F800FB5AN6F2","FLASH - NOR Memory IC 1Mx8 512Kx16 Parallel 5v 48-TSOP"
